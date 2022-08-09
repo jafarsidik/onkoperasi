@@ -1,0 +1,132 @@
+{
+ "actions": [],
+ "autoname": "field:kode",
+ "creation": "2022-08-08 12:08:00.824848",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "umum_tab",
+  "kode",
+  "nama",
+  "jasa_bunga",
+  "sistem_bunga",
+  "tenor",
+  "plafon",
+  "tipe_denda",
+  "denda_perhari",
+  "akutansi_tab"
+ ],
+ "fields": [
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "kode",
+   "fieldtype": "Data",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Kode",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "nama",
+   "fieldtype": "Data",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Nama",
+   "reqd": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "tenor",
+   "fieldtype": "Select",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Tenor",
+   "options": "\nHarian\nMingguan\nBulanan"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "plafon",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Plafon Maximum"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "description": "Jasa Bunga % PA/Per Tahun",
+   "fieldname": "jasa_bunga",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "Jasa ( Bunga) PA",
+   "reqd": 1
+  },
+  {
+   "fieldname": "umum_tab",
+   "fieldtype": "Tab Break",
+   "label": "Umum"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "sistem_bunga",
+   "fieldtype": "Select",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Sistem Bunga",
+   "options": "\nBunga Flat\nBunga Menurun/Anuitas\nBunga Efektif/Sliding Rate",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tipe_denda",
+   "fieldtype": "Select",
+   "label": "Tipe Denda",
+   "options": "Denda Nominal\nSaldo x Persen% x Hari\nAngsuran x Persen% x Hari"
+  },
+  {
+   "fieldname": "denda_perhari",
+   "fieldtype": "Data",
+   "label": "Denda Perhari"
+  },
+  {
+   "fieldname": "akutansi_tab",
+   "fieldtype": "Tab Break",
+   "label": "Akutansi"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-08-08 19:55:33.042554",
+ "modified_by": "Administrator",
+ "module": "OnKoperasi",
+ "name": "Jenis Pinjaman",
+ "name_case": "UPPER CASE",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "search_fields": "kode, nama",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

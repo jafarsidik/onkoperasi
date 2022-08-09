@@ -1,0 +1,248 @@
+{
+ "actions": [],
+ "autoname": "format:AGT{#####}",
+ "creation": "2022-08-08 08:15:04.889778",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "identitas_diri_section",
+  "nama",
+  "tanggal_masuk",
+  "tempat_lahir",
+  "tanggal_lahir",
+  "jenis_kelamin",
+  "nik",
+  "file_ktp",
+  "foto",
+  "column_break_7",
+  "alamat",
+  "provinsi",
+  "kota",
+  "kecamatan",
+  "kelurahan",
+  "kontak_section",
+  "no_hp",
+  "no_hp_2",
+  "column_break_20",
+  "email",
+  "keanggotaan_section",
+  "pekerjaan",
+  "jabatan",
+  "gaji",
+  "column_break_26",
+  "tipe_anggota",
+  "status",
+  "section_break_29",
+  "bank",
+  "column_break_31",
+  "nama_pemilik_rekening",
+  "column_break_33",
+  "nomor_rekening"
+ ],
+ "fields": [
+  {
+   "fieldname": "identitas_diri_section",
+   "fieldtype": "Section Break",
+   "label": "Identitas Diri"
+  },
+  {
+   "fieldname": "nama",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Nama Lengkap",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tanggal_masuk",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Tanggal Masuk",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tempat_lahir",
+   "fieldtype": "Data",
+   "label": "Tempat Lahir"
+  },
+  {
+   "fieldname": "tanggal_lahir",
+   "fieldtype": "Date",
+   "label": "Tanggal Lahir"
+  },
+  {
+   "fieldname": "jenis_kelamin",
+   "fieldtype": "Select",
+   "label": "Jenis Kelamin",
+   "options": "\nLaki - Laki\nPerempuan"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "nik",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "NIK",
+   "reqd": 1
+  },
+  {
+   "fieldname": "file_ktp",
+   "fieldtype": "Attach Image",
+   "label": "File KTP"
+  },
+  {
+   "fieldname": "foto",
+   "fieldtype": "Attach Image",
+   "hidden": 1,
+   "label": "Foto"
+  },
+  {
+   "fieldname": "alamat",
+   "fieldtype": "Small Text",
+   "label": "Alamat"
+  },
+  {
+   "fieldname": "provinsi",
+   "fieldtype": "Data",
+   "label": "Provinsi"
+  },
+  {
+   "fieldname": "kota",
+   "fieldtype": "Data",
+   "label": "Kota "
+  },
+  {
+   "fieldname": "kecamatan",
+   "fieldtype": "Data",
+   "label": "Kecamatan"
+  },
+  {
+   "fieldname": "kelurahan",
+   "fieldtype": "Data",
+   "label": "Kelurahan"
+  },
+  {
+   "fieldname": "kontak_section",
+   "fieldtype": "Section Break",
+   "label": "Kontak"
+  },
+  {
+   "fieldname": "no_hp",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "No Hp",
+   "reqd": 1
+  },
+  {
+   "fieldname": "no_hp_2",
+   "fieldtype": "Data",
+   "label": "No Hp 2"
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email"
+  },
+  {
+   "fieldname": "keanggotaan_section",
+   "fieldtype": "Section Break",
+   "label": "Keanggotaan"
+  },
+  {
+   "fieldname": "pekerjaan",
+   "fieldtype": "Data",
+   "label": "Pekerjaan"
+  },
+  {
+   "fieldname": "jabatan",
+   "fieldtype": "Data",
+   "label": "Jabatan"
+  },
+  {
+   "fieldname": "gaji",
+   "fieldtype": "Currency",
+   "label": "Gaji"
+  },
+  {
+   "fieldname": "tipe_anggota",
+   "fieldtype": "Select",
+   "label": "Tipe Anggota",
+   "options": "\nUmum\nKhusus"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nAktif\nTidak Aktif",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_26",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_29",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "bank",
+   "fieldtype": "Data",
+   "label": "Bank"
+  },
+  {
+   "fieldname": "nama_pemilik_rekening",
+   "fieldtype": "Data",
+   "label": "Nama Pemilik Rekening"
+  },
+  {
+   "fieldname": "nomor_rekening",
+   "fieldtype": "Data",
+   "label": "Nomor Rekening"
+  },
+  {
+   "fieldname": "column_break_31",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_33",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "image_field": "foto",
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-08-08 12:35:52.135961",
+ "modified_by": "Administrator",
+ "module": "OnKoperasi",
+ "name": "Anggota",
+ "name_case": "Title Case",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "nama, nik",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

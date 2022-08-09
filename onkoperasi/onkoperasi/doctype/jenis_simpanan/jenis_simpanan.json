@@ -1,0 +1,249 @@
+{
+ "actions": [],
+ "autoname": "format:{kode_simpanan}{####}",
+ "creation": "2022-08-08 08:47:23.724580",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_1",
+  "column_break_2",
+  "kode_simpanan",
+  "nama_simpanan",
+  "masuk_hitungan_shu",
+  "bisa_multi_rekening",
+  "tabungan_rencana",
+  "column_break_9",
+  "induk_akun",
+  "deskripsi",
+  "tipe_setoran_section",
+  "tipe_setoran",
+  "column_break_10",
+  "periode_tagihan",
+  "tipe_penarikan_section",
+  "tipe_penarikan",
+  "jangka_waktu_section",
+  "jangka_waktu",
+  "konfigurasi_biaya_section",
+  "setoran_column",
+  "nominal_setoran_awal",
+  "penarikan_column",
+  "minimal_penarikan",
+  "maximal_penarikan",
+  "maximal_penarikan_harian",
+  "maximal_penarikan_bulanan",
+  "saldo_column",
+  "limit_maximal_saldo",
+  "limit_minimal_saldo",
+  "column_break_biaya_biaya",
+  "biaya_pembukaan_rekening",
+  "biaya_penutupan_rekening",
+  "biaya_admin"
+ ],
+ "fields": [
+  {
+   "fieldname": "kode_simpanan",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Kode Simpanan",
+   "reqd": 1
+  },
+  {
+   "fieldname": "nama_simpanan",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Nama Simpanan",
+   "reqd": 1
+  },
+  {
+   "fieldname": "deskripsi",
+   "fieldtype": "Small Text",
+   "label": "Deskripsi"
+  },
+  {
+   "fieldname": "masuk_hitungan_shu",
+   "fieldtype": "Select",
+   "label": "Masuk Hitungan SHU",
+   "options": "\nYa\nTidak"
+  },
+  {
+   "fieldname": "induk_akun",
+   "fieldtype": "Data",
+   "label": "Induk Akun"
+  },
+  {
+   "fieldname": "bisa_multi_rekening",
+   "fieldtype": "Select",
+   "label": "Bisa multi rekening",
+   "options": "\nYa\nTidak"
+  },
+  {
+   "fieldname": "tabungan_rencana",
+   "fieldtype": "Select",
+   "label": "Tabungan rencana",
+   "options": "\nYa\nTidak"
+  },
+  {
+   "fieldname": "tipe_setoran_section",
+   "fieldtype": "Section Break",
+   "label": "Tipe Setoran"
+  },
+  {
+   "fieldname": "tipe_setoran",
+   "fieldtype": "Select",
+   "label": "Tipe Setoran",
+   "options": "Setor Kapan Saja\nDengan Tagihan"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "periode_tagihan",
+   "fieldtype": "Select",
+   "label": "Periode Tagihan",
+   "options": "Harian\nMingguan\nBulanan"
+  },
+  {
+   "fieldname": "tipe_penarikan_section",
+   "fieldtype": "Section Break",
+   "label": "Tipe Penarikan"
+  },
+  {
+   "fieldname": "tipe_penarikan",
+   "fieldtype": "Select",
+   "label": "Tipe Penarikan",
+   "options": "Bisa Ditarik Kapan Saja\nHanya Oleh Pengurus/Admin\nHanya Saat Penutupan Rekening"
+  },
+  {
+   "fieldname": "jangka_waktu_section",
+   "fieldtype": "Section Break",
+   "label": "Jangka Waktu"
+  },
+  {
+   "fieldname": "jangka_waktu",
+   "fieldtype": "Select",
+   "label": "Jangka Waktu",
+   "options": "Tidak Berjangka\nBerjangka\nBerjangka Fixed"
+  },
+  {
+   "fieldname": "konfigurasi_biaya_section",
+   "fieldtype": "Section Break",
+   "label": "Konfigurasi Biaya"
+  },
+  {
+   "fieldname": "setoran_column",
+   "fieldtype": "Column Break",
+   "label": "Setoran"
+  },
+  {
+   "fieldname": "nominal_setoran_awal",
+   "fieldtype": "Currency",
+   "label": "Nominal Setoran Awal"
+  },
+  {
+   "fieldname": "penarikan_column",
+   "fieldtype": "Column Break",
+   "label": "Penarikan"
+  },
+  {
+   "fieldname": "minimal_penarikan",
+   "fieldtype": "Currency",
+   "label": "Minimal Penarikan"
+  },
+  {
+   "fieldname": "maximal_penarikan",
+   "fieldtype": "Currency",
+   "label": "Maximal Penarikan"
+  },
+  {
+   "fieldname": "maximal_penarikan_harian",
+   "fieldtype": "Currency",
+   "label": "Maximal Penarikan Harian"
+  },
+  {
+   "fieldname": "maximal_penarikan_bulanan",
+   "fieldtype": "Currency",
+   "label": "Maximal Penarikan Bulanan"
+  },
+  {
+   "fieldname": "saldo_column",
+   "fieldtype": "Column Break",
+   "label": "Saldo"
+  },
+  {
+   "fieldname": "limit_maximal_saldo",
+   "fieldtype": "Currency",
+   "label": "Limit Maximal Saldo"
+  },
+  {
+   "fieldname": "limit_minimal_saldo",
+   "fieldtype": "Currency",
+   "label": "Limit Minimal Saldo"
+  },
+  {
+   "fieldname": "column_break_biaya_biaya",
+   "fieldtype": "Column Break",
+   "label": "Biaya - Biaya"
+  },
+  {
+   "fieldname": "biaya_pembukaan_rekening",
+   "fieldtype": "Currency",
+   "label": "Biaya Pembukaan Rekening"
+  },
+  {
+   "fieldname": "biaya_penutupan_rekening",
+   "fieldtype": "Currency",
+   "label": "Biaya Penutupan Rekening"
+  },
+  {
+   "fieldname": "biaya_admin",
+   "fieldtype": "Currency",
+   "label": "Biaya Admin"
+  },
+  {
+   "fieldname": "section_break_1",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-08-08 09:30:08.435549",
+ "modified_by": "Administrator",
+ "module": "OnKoperasi",
+ "name": "Jenis Simpanan",
+ "name_case": "Title Case",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "kode_simpanan,nama_simpanan",
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "nama_simpanan",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

@@ -1,0 +1,110 @@
+{
+ "charts": [],
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Koperasi Simpan Pinjam</span>\",\"col\":12}},{\"type\":\"card\",\"data\":{\"card_name\":\"Simpanan\",\"col\":3}},{\"type\":\"card\",\"data\":{\"card_name\":\"Pinjaman\",\"col\":3}},{\"type\":\"card\",\"data\":{\"card_name\":\"Master\",\"col\":4}}]",
+ "creation": "2022-08-08 10:07:18.452494",
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "organization",
+ "idx": 0,
+ "label": "KSP",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Simpanan",
+   "link_count": 2,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Tabungan",
+   "link_count": 0,
+   "link_to": "Tabungan",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Transaksi Simpanan",
+   "link_count": 0,
+   "link_to": "Transaksi Simpanan",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Master",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Jenis Simpanan",
+   "link_count": 0,
+   "link_to": "Jenis Simpanan",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Jenis Pinjaman",
+   "link_count": 0,
+   "link_to": "Jenis Pinjaman",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Anggota",
+   "link_count": 0,
+   "link_to": "Anggota",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Pinjaman",
+   "link_count": 1,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Pinjaman",
+   "link_count": 0,
+   "link_to": "Pinjaman",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2022-08-08 14:23:49.290757",
+ "modified_by": "Administrator",
+ "module": "OnKoperasi",
+ "name": "KSP",
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 1.0,
+ "shortcuts": [],
+ "title": "KSP"
+}

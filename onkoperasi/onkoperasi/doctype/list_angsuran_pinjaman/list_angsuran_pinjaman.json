@@ -1,0 +1,61 @@
+{
+ "actions": [],
+ "autoname": "autoincrement",
+ "creation": "2022-08-08 16:02:57.741364",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tanggal_tempo",
+  "pokok",
+  "bunga",
+  "angsuran",
+  "saldo"
+ ],
+ "fields": [
+  {
+   "fieldname": "tanggal_tempo",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Tanggal Tempo"
+  },
+  {
+   "fieldname": "pokok",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Pokok"
+  },
+  {
+   "fieldname": "bunga",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Bunga"
+  },
+  {
+   "fieldname": "angsuran",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Angsuran"
+  },
+  {
+   "fieldname": "saldo",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Saldo",
+   "print_hide_if_no_value": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-08-08 16:02:57.741364",
+ "modified_by": "Administrator",
+ "module": "OnKoperasi",
+ "name": "List Angsuran Pinjaman",
+ "naming_rule": "Autoincrement",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
