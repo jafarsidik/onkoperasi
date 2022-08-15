@@ -3,7 +3,7 @@
 
 frappe.ui.form.on('Pinjaman', {
 	refresh: function(frm) {
-		frm.toggle_reqd(['disetujui_oleh','tanggal_di_setujui','catatan'], frm.doc.status === 'Requested');
+		frm.toggle_reqd(['disetujui_oleh','tanggal_di_setujui','tanggal_jatuh_tempo','catatan'], frm.doc.status === 'Requested');
 		frm.toggle_display([
 			'no_kredit',
 			'realisasi_jenis_pinjaman',
@@ -11,6 +11,7 @@ frappe.ui.form.on('Pinjaman', {
 			'ralisasi_alamat',
 		 	'disetujui_oleh',
 		 	'tanggal_di_setujui',
+			'tanggal_jatuh_tempo',
 		 	'catatan',
 		 	'realisasi',
 		 	'administrasi_',
@@ -153,11 +154,24 @@ frappe.ui.form.on('Pinjaman', {
 		frm.set_value('grand_total', grand_total);
 	},
 	simulasi_pinjaman:function(frm){
-		frappe.call('onkoperasi.onkoperasi.doctype.pinjaman.pinjaman.simulasi_pinjaman', {fieldname: frm.doc.name}).then(r => {
-				
-			console.log(r)
 		
-				
+		frappe.call('onkoperasi.onkoperasi.doctype.pinjaman.pinjaman.simulasi_pinjaman', {fieldname: frm.doc.name}).then(r => {
+			let res = r.message;
+			frm.clear_table("list_angsuran_pinjaman")
+			frm.refresh_fields();
+			console.log(res);
+			res.forEach((val,index,array) => {
+				frm.refresh_field('list_angsuran_pinjaman');
+				frm.add_child('list_angsuran_pinjaman', {
+					tanggal_tempo:val.tanggal_tempo,
+					pokok: val.pokok,
+					bunga: val.bunga,
+					angsuran: val.angsuran,
+					saldo: val.saldo
+				});
+				//frm.refresh_field('list_angsuran_pinjaman');
+			})
+			
 		});
 
 	}

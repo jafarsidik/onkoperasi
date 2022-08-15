@@ -15,63 +15,36 @@ class Pinjaman(Document):
 @frappe.whitelist()	
 def simulasi_pinjaman(fieldname):
 	doc = frappe.get_doc('Pinjaman',fieldname)
-	print(fieldname)
-	doc.list_angsuran_pinjaman = []
-	payment_date = doc.tanggal_di_setujui
-	plafon = doc.plafon
-	if doc.tipe_pembayaran_pinjaman == 'Flat':
-		i = 0
-		while  i < int(self.tenor):
-			
-			pokok_angsuran = doc.pokok
-			bunga_angsuran = doc.bunga
-			angsuran = doc.angsuran
-			plafon = flt(plafon - angsuran)
-			if plafon < 0:
-				plafon = 0.0
+	list_angsuran_pinjaman = []
+	tempo	= doc.tanggal_di_setujui
+	plafon	= doc.plafon
+	tenor	= doc.tenor
+	sukubunga = (doc.jasa_bunga /100)
+	sistem_bunga = doc.sistem_bunga
+	satuan_jangka_waktu = doc.satuan_jangka_waktu
 
-			if doc.tipe_angsuran == 'Bulanan':
-				doc.append(
-					"list_angsuran_pinjaman",
-					{
-						"tanggal_tempo": add_single_month(payment_date),
-						"pokok": pokok_angsuran,
-						"bunga": bunga_angsuran,
-						"angsuran": angsuran,
-						"saldo": plafon,
-					},
-				)
-				next_payment_date = add_single_month(payment_date)
-				payment_date = next_payment_date
-				
-			if self.tipe_angsuran == 'Mingguan':
-				self.append(
-					"list_angsuran_pinjaman",
-					{
-						"tanggal_tempo": add_single_week(payment_date),
-						"pokok": pokok_angsuran,
-						"bunga": bunga_angsuran,
-						"angsuran": angsuran,
-						"saldo": plafon,
-					},
-				)
-				next_payment_date = add_single_week(payment_date)
-				payment_date = next_payment_date
+	if sistem_bunga == 'Bunga Flat' and satuan_jangka_waktu == 'Bulanan':
+		i = 0
+		pokok = (plafon / tenor)
+		bunga = ( (plafon * sukubunga) / tenor )
+		sisa_pinjaman = plafon
+		jumlah_angsuran	= (pokok + bunga)
+		
+		for i in range(int(tenor)):
 			
-			if self.tipe_angsuran == 'Harian':
-				self.append(
-					"list_angsuran_pinjaman",
-					{
-						"tanggal_tempo": add_single_days(payment_date),
-						"pokok": pokok_angsuran,
-						"bunga": bunga_angsuran,
-						"angsuran": angsuran,
-						"saldo": plafon,
-					},
-				)
-				next_date = add_single_days(payment_date)
-				payment_date = next_date
-			i += 1
+			sisa_pinjaman -= pokok
+			list_angsuran_pinjaman.append({
+				'no':i+1,
+				"tanggal_tempo": tempo,
+				"pokok": pokok,
+				"bunga": bunga,
+				"angsuran": jumlah_angsuran,
+				"saldo": sisa_pinjaman,
+			})
+			next_payment_date = add_single_month(tempo)
+			tempo = next_payment_date
+			#i += 1
+		return list_angsuran_pinjaman
 	
 def add_single_month(date):
 	if getdate(date) == get_last_day(date):

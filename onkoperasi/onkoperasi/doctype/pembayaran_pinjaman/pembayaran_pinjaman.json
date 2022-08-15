@@ -1,0 +1,104 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-08-15 08:45:27.112512",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_1",
+  "pinjaman",
+  "tgl_bayar",
+  "nominal",
+  "column_break_5",
+  "tgl_tempo",
+  "pembayaran_ke",
+  "jumlah_pinjaman",
+  "section_break_9",
+  "keterangan"
+ ],
+ "fields": [
+  {
+   "fieldname": "pinjaman",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Pinjaman",
+   "options": "Pinjaman",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "pinjaman.tanggal_jatuh_tempo",
+   "fieldname": "tgl_tempo",
+   "fieldtype": "Date",
+   "label": "Tgl Tempo",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tgl_bayar",
+   "fieldtype": "Date",
+   "label": "Tgl Bayar"
+  },
+  {
+   "fieldname": "keterangan",
+   "fieldtype": "Small Text",
+   "label": "Keterangan"
+  },
+  {
+   "fieldname": "pembayaran_ke",
+   "fieldtype": "Int",
+   "label": "Pembayaran Ke",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "pinjaman.jumlah_angsuran",
+   "fieldname": "jumlah_pinjaman",
+   "fieldtype": "Currency",
+   "label": "Jumlah Pinjaman",
+   "read_only": 1
+  },
+  {
+   "fieldname": "nominal",
+   "fieldtype": "Currency",
+   "label": "Nominal"
+  },
+  {
+   "fieldname": "section_break_1",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-08-15 08:57:18.824793",
+ "modified_by": "Administrator",
+ "module": "OnKoperasi",
+ "name": "Pembayaran Pinjaman",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}
