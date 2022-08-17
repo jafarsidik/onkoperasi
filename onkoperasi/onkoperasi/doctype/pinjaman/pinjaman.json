@@ -25,26 +25,22 @@
   "jasa_bunga",
   "satuan_jangka_waktu",
   "amended_from",
-  "list_angsuran_pinjaman_section",
-  "simulasi_pinjaman",
-  "list_angsuran_pinjaman",
-  "realisasi_pinjaman_tab",
-  "no_kredit",
-  "realisasi_jenis_pinjaman",
-  "realisasi_nama_nasabah",
-  "ralisasi_alamat",
-  "section_break_44",
+  "pinjaman_section",
   "tanggal_di_setujui",
-  "tanggal_jatuh_tempo",
-  "disetujui_oleh",
   "catatan",
+  "section_break_44",
+  "disetujui_oleh",
   "realisasi_section",
-  "realisasi",
+  "potongan_column",
+  "tanggal_realisasi",
   "administrasi_",
   "provisi_",
   "asuransi_",
   "biaya_lain_lain",
+  "penerimaan_column",
   "grand_total",
+  "list_angsuran_pinjaman_section",
+  "list_angsuran_pinjaman",
   "data_keluarga_tab",
   "pasangan_column",
   "status_pasangan",
@@ -174,14 +170,15 @@
   },
   {
    "fieldname": "list_angsuran_pinjaman_section",
-   "fieldtype": "Section Break",
+   "fieldtype": "Tab Break",
    "label": "List Angsuran Pinjaman"
   },
   {
    "fieldname": "list_angsuran_pinjaman",
    "fieldtype": "Table",
    "label": "List Angsuran Pinjaman",
-   "options": "List Angsuran Pinjaman"
+   "options": "List Angsuran Pinjaman",
+   "read_only": 1
   },
   {
    "fieldname": "data_pinjaman_tab",
@@ -300,76 +297,44 @@
    "read_only": 1
   },
   {
-   "fieldname": "realisasi_pinjaman_tab",
-   "fieldtype": "Tab Break",
-   "label": "Realisasi Pinjaman"
-  },
-  {
-   "fieldname": "no_kredit",
-   "fieldtype": "Link",
-   "label": "No Kredit",
-   "options": "Pinjaman",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "no_kredit.jenis_pinjaman",
-   "fieldname": "realisasi_jenis_pinjaman",
-   "fieldtype": "Link",
-   "label": "Jenis Kredit",
-   "options": "Jenis Pinjaman",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "no_kredit.nama_lengkap",
-   "fieldname": "realisasi_nama_nasabah",
-   "fieldtype": "Data",
-   "label": "Nama Nasabah",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "no_kredit.alamat_anggota",
-   "fieldname": "ralisasi_alamat",
-   "fieldtype": "Data",
-   "label": "Alamat ",
-   "read_only": 1
-  },
-  {
    "fieldname": "section_break_44",
    "fieldtype": "Column Break"
   },
   {
    "fieldname": "realisasi_section",
-   "fieldtype": "Section Break",
-   "label": "Realisasi"
+   "fieldtype": "Tab Break",
+   "label": "Realisasi Pinjaman"
   },
   {
    "fieldname": "biaya_lain_lain",
    "fieldtype": "Currency",
-   "label": "Biaya Lain - Lain"
+   "label": "Biaya Lain - Lain ( Rp )"
   },
   {
-   "default": "0",
-   "fetch_from": "no_kredit.plafon",
-   "fieldname": "realisasi",
-   "fieldtype": "Currency",
-   "label": "Realisasi",
-   "read_only": 1
-  },
-  {
-   "fieldname": "simulasi_pinjaman",
-   "fieldtype": "Button",
-   "label": "Simulasi Pinjaman"
-  },
-  {
-   "fieldname": "tanggal_jatuh_tempo",
+   "fieldname": "tanggal_realisasi",
    "fieldtype": "Date",
-   "label": "Tanggal Jatuh Tempo"
+   "label": "Tanggal Realisasi"
+  },
+  {
+   "fieldname": "pinjaman_section",
+   "fieldtype": "Tab Break",
+   "label": "Persetujuan Pinjaman"
+  },
+  {
+   "fieldname": "potongan_column",
+   "fieldtype": "Column Break",
+   "label": "Potongan"
+  },
+  {
+   "fieldname": "penerimaan_column",
+   "fieldtype": "Column Break",
+   "label": "Penerimaan"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-08-15 08:43:06.628299",
+ "modified": "2022-08-17 05:48:58.579959",
  "modified_by": "Administrator",
  "module": "OnKoperasi",
  "name": "Pinjaman",

@@ -9,7 +9,24 @@ app_license = "MIT"
 
 # Includes in <head>
 # ------------------
+fixtures = [
+    {"doctype": "Role",
+		"filters": {
+			"name": [ "in", ["Ketua","Bendahara","Staf","Anggota"] ]
+		}
+	},
+    {"doctype":"Custom DocPerm"},
+    {"doctype":"Workflow State"},
+    {"doctype": "Workflow",
+		"filters": {
+			"name": [ "in", ["Pinjaman"] ]
+		}
+	},
+    {"doctype":"Jenis Simpanan"},
+    {"doctype":"Jenis Pinjaman"},
 
+
+]
 # include js, css files in header of desk.html
 # app_include_css = "/assets/onkoperasi/css/onkoperasi.css"
 # app_include_js = "/assets/onkoperasi/js/onkoperasi.js"

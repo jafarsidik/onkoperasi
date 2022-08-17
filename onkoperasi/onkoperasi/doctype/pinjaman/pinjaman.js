@@ -2,31 +2,31 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Pinjaman', {
+	
 	refresh: function(frm) {
-		frm.toggle_reqd(['disetujui_oleh','tanggal_di_setujui','tanggal_jatuh_tempo','catatan'], frm.doc.status === 'Requested');
-		frm.toggle_display([
-			'no_kredit',
-			'realisasi_jenis_pinjaman',
-			'realisasi_nama_nasabah',
-			'ralisasi_alamat',
-		 	'disetujui_oleh',
-		 	'tanggal_di_setujui',
-			'tanggal_jatuh_tempo',
-		 	'catatan',
-		 	'realisasi',
-		 	'administrasi_',
-		 	'provisi_',
-		 	'asuransi_',
-		 	'biaya_lain_lain',
-		 	'grand_total'
-		 ], frm.doc.status === 'Requested' || frm.doc.status === 'Approved');
+		
 		if(!frm.is_new()){
-			frm.set_value('no_kredit', frm.doc.name);
+			frm.toggle_reqd(['disetujui_oleh','tanggal_di_setujui','tanggal_realisasi','catatan'], frm.doc.status === 'Requested');
+			frm.toggle_reqd(['tanggal_realisasi'], frm.doc.status === 'Approved');
+
+			frm.toggle_display([
+				'disetujui_oleh',
+				'tanggal_di_setujui',
+				'catatan',
+				'tanggal_realisasi',
+				'administrasi_',
+				'provisi_',
+				'asuransi_',
+				'biaya_lain_lain',
+				'grand_total'
+			], frm.doc.status === 'Requested' || frm.doc.status === 'Approved');
 			if( parseFloat(frm.doc.grand_total) <= 0 ){
 				
 				frm.set_value('grand_total', frm.doc.plafon);
 			}
 		}
+		
+
 	},
 	setup: function (frm) {
 		frm.set_query('anggota', function () {
@@ -152,28 +152,28 @@ frappe.ui.form.on('Pinjaman', {
 		let total = ((100 - frm.doc.administrasi_ - frm.doc.provisi_ - frm.doc.asuransi_) * frm.doc.plafon / 100);
 		let grand_total = (total - frm.doc.biaya_lain_lain);
 		frm.set_value('grand_total', grand_total);
-	},
-	simulasi_pinjaman:function(frm){
-		
-		frappe.call('onkoperasi.onkoperasi.doctype.pinjaman.pinjaman.simulasi_pinjaman', {fieldname: frm.doc.name}).then(r => {
-			let res = r.message;
-			frm.clear_table("list_angsuran_pinjaman")
-			frm.refresh_fields();
-			console.log(res);
-			res.forEach((val,index,array) => {
-				frm.refresh_field('list_angsuran_pinjaman');
-				frm.add_child('list_angsuran_pinjaman', {
-					tanggal_tempo:val.tanggal_tempo,
-					pokok: val.pokok,
-					bunga: val.bunga,
-					angsuran: val.angsuran,
-					saldo: val.saldo
-				});
-				//frm.refresh_field('list_angsuran_pinjaman');
-			})
-			
-		});
-
 	}
+	// simulasi_pinjaman:function(frm){
+		
+	// 	frappe.call('onkoperasi.onkoperasi.doctype.pinjaman.pinjaman.simulasi_pinjaman', {fieldname: frm.doc.name}).then(r => {
+	// 		let res = r.message;
+	// 		frm.clear_table("list_angsuran_pinjaman")
+	// 		frm.refresh_fields();
+	// 		console.log(res);
+	// 		res.forEach((val,index,array) => {
+	// 			frm.refresh_field('list_angsuran_pinjaman');
+	// 			frm.add_child('list_angsuran_pinjaman', {
+	// 				tanggal_tempo:val.tanggal_tempo,
+	// 				pokok: val.pokok,
+	// 				bunga: val.bunga,
+	// 				angsuran: val.angsuran,
+	// 				saldo: val.saldo
+	// 			});
+	// 			//frm.refresh_field('list_angsuran_pinjaman');
+	// 		})
+			
+	// 	});
+
+	// }
 	
 });

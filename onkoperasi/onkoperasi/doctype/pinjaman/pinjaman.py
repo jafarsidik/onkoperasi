@@ -7,10 +7,56 @@ from frappe.utils import add_months, add_days,flt, get_last_day, getdate, now_da
 from frappe.model.document import Document
 
 class Pinjaman(Document):
-	pass
-	# def validate(self):
-	# 	if self.status == 'Approved':
-	# 		self.make_repayment_schedule()
+	#pass
+	def validate(self):
+		if self.status_realisasi == 'Already Realized':
+		#if self.status == 'Approved':
+			self.pembayaran_pinjaman()
+	def pembayaran_pinjaman(self):
+		tempo	= self.tanggal_realisasi
+		plafon	= self.plafon
+		tenor	= self.tenor
+		sukubunga = (self.jasa_bunga /100)
+		sistem_bunga = self.sistem_bunga
+		satuan_jangka_waktu = self.satuan_jangka_waktu
+
+		if sistem_bunga == 'Bunga Flat' and satuan_jangka_waktu == 'Bulanan':
+			i = 0
+			pokok = (plafon / tenor)
+			bunga = ( (plafon * sukubunga) / tenor )
+			sisa_pinjaman = plafon
+			jumlah_angsuran	= (pokok + bunga)
+			while  i < int(tenor):
+				self.append('list_angsuran_pinjaman',{
+					"tanggal_tempo": add_single_month(tempo),
+					"pokok": pokok,
+					"bunga": bunga,
+					"angsuran": jumlah_angsuran,
+					"saldo": sisa_pinjaman,
+				})
+				next_payment_date = add_single_month(tempo)
+				tempo = next_payment_date
+				sisa_pinjaman -= pokok
+				i += 1
+		if sistem_bunga == 'Bunga Flat' and satuan_jangka_waktu == 'Harian':
+			i = 0
+			pokok = (plafon / tenor)
+			bunga = ( (plafon * sukubunga) / 12 / 30)
+			sisa_pinjaman = plafon
+			jumlah_angsuran	= (pokok + bunga)
+			while  i < int(tenor):
+				self.append('list_angsuran_pinjaman',{
+					"tanggal_tempo": add_single_days(tempo),
+					"pokok": pokok,
+					"bunga": bunga,
+					"angsuran": jumlah_angsuran,
+					"saldo": sisa_pinjaman,
+				})
+				next_payment_date = add_single_days(tempo)
+				tempo = next_payment_date
+				sisa_pinjaman -= pokok
+				i += 1
+
 
 @frappe.whitelist()	
 def simulasi_pinjaman(fieldname):
@@ -32,7 +78,11 @@ def simulasi_pinjaman(fieldname):
 		
 		for i in range(int(tenor)):
 			
-			sisa_pinjaman -= pokok
+			
+			plafon = flt(plafon - jumlah_angsuran)
+			if plafon < 0:
+				plafon = 0.0
+
 			list_angsuran_pinjaman.append({
 				'no':i+1,
 				"tanggal_tempo": tempo,
