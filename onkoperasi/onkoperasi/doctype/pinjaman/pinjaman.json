@@ -39,6 +39,8 @@
   "biaya_lain_lain",
   "penerimaan_column",
   "grand_total",
+  "section_break_rcco",
+  "potongan_pinjaman",
   "list_angsuran_pinjaman_section",
   "list_angsuran_pinjaman",
   "data_keluarga_tab",
@@ -329,17 +331,26 @@
    "fieldname": "penerimaan_column",
    "fieldtype": "Column Break",
    "label": "Penerimaan"
+  },
+  {
+   "fieldname": "section_break_rcco",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "potongan_pinjaman",
+   "fieldtype": "Table",
+   "label": "Potongan Pinjaman",
+   "options": "Potongan Pinjaman"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-08-17 05:48:58.579959",
+ "modified": "2026-05-25 22:24:58.638462",
  "modified_by": "Administrator",
  "module": "OnKoperasi",
  "name": "Pinjaman",
- "name_case": "UPPER CASE",
- "naming_rule": "Expression",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {
@@ -355,6 +366,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

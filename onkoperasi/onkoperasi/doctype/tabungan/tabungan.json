@@ -18,10 +18,13 @@
   "transaksi_ke_akun",
   "amended_from",
   "detail_rekening_section",
-  "total_simpanan",
+  "nomor_rekening",
+  "tanggal_buka",
+  "tanggal_tutup",
+  "alasan_tutup",
   "column_break_12",
+  "total_simpanan",
   "total_penarikan",
-  "column_break_14",
   "total_saldo"
  ],
  "fields": [
@@ -64,6 +67,7 @@
    "allow_in_quick_entry": 1,
    "fieldname": "saldo_awal",
    "fieldtype": "Currency",
+   "in_list_view": 1,
    "label": "Saldo Awal",
    "reqd": 1,
    "set_only_once": 1
@@ -77,6 +81,8 @@
    "allow_in_quick_entry": 1,
    "fieldname": "status_simpanan",
    "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Status Simpanan",
    "options": "Aktif\nTidak Aktif",
    "reqd": 1
@@ -114,18 +120,16 @@
    "allow_on_submit": 1,
    "fieldname": "total_penarikan",
    "fieldtype": "Currency",
+   "in_list_view": 1,
    "label": "Total Penarikan",
    "read_only": 1
-  },
-  {
-   "fieldname": "column_break_14",
-   "fieldtype": "Column Break"
   },
   {
    "allow_on_submit": 1,
    "bold": 1,
    "fieldname": "total_saldo",
    "fieldtype": "Currency",
+   "in_list_view": 1,
    "label": "Total Saldo",
    "read_only": 1
   },
@@ -133,8 +137,32 @@
    "allow_on_submit": 1,
    "fieldname": "total_simpanan",
    "fieldtype": "Currency",
+   "in_list_view": 1,
    "label": "Total Simapanan",
    "read_only": 1
+  },
+  {
+   "fetch_from": "nama_penabung.nomor_rekening",
+   "fieldname": "nomor_rekening",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Nomor Rekening",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tanggal_buka",
+   "fieldtype": "Date",
+   "label": "Tanggal Pembukaan Rekening"
+  },
+  {
+   "fieldname": "tanggal_tutup",
+   "fieldtype": "Date",
+   "label": "Tanggal Tutup Rekening"
+  },
+  {
+   "fieldname": "alasan_tutup",
+   "fieldtype": "Small Text",
+   "label": "Alasan Tutup Rekening"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -144,11 +172,11 @@
    "link_fieldname": "rekening_tabungan"
   }
  ],
- "modified": "2022-08-08 11:39:38.381021",
+ "modified": "2026-05-25 22:03:56.548576",
  "modified_by": "Administrator",
  "module": "OnKoperasi",
  "name": "Tabungan",
- "naming_rule": "Expression",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {
@@ -165,6 +193,7 @@
   }
  ],
  "quick_entry": 1,
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
