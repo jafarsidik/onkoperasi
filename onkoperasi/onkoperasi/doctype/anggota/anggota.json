@@ -38,7 +38,12 @@
   "column_break_31",
   "nama_pemilik_rekening",
   "column_break_33",
-  "nomor_rekening"
+  "nomor_rekening",
+  "keuangan_tab",
+  "total_simpanan",
+  "total_pinjaman_aktif",
+  "shu_tahunan",
+  "column_break_sgha"
  ],
  "fields": [
   {
@@ -212,17 +217,49 @@
   {
    "fieldname": "column_break_33",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "keuangan_tab",
+   "fieldtype": "Tab Break",
+   "label": "Keuangan"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_simpanan",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Total Simpanan",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_pinjaman_aktif",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Total Pinjaman Aktif",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "shu_tahunan",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "SHU Tahunan",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_sgha",
+   "fieldtype": "Column Break"
   }
  ],
  "image_field": "foto",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-08-08 12:35:52.135961",
+ "modified": "2026-05-25 21:59:12.000218",
  "modified_by": "Administrator",
  "module": "OnKoperasi",
  "name": "Anggota",
- "name_case": "Title Case",
- "naming_rule": "Expression",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {
@@ -238,6 +275,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "search_fields": "nama, nik",
  "sort_field": "modified",
  "sort_order": "DESC",

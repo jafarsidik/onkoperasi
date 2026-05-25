@@ -15,7 +15,12 @@
   "column_break_6",
   "keterangan",
   "masuk_jurnal",
-  "kode_akun"
+  "kode_akun",
+  "teller",
+  "section_break_vrbu",
+  "saldo_sebelumnya",
+  "column_break_faqc",
+  "saldo_sesudahnya"
  ],
  "fields": [
   {
@@ -105,16 +110,46 @@
    "label": "Jenis Simpanan",
    "options": "Jenis Simpanan",
    "read_only": 1
+  },
+  {
+   "default": "__user",
+   "fieldname": "teller",
+   "fieldtype": "Link",
+   "label": "Teller",
+   "options": "User"
+  },
+  {
+   "fieldname": "section_break_vrbu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "saldo_sebelumnya",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Saldo Sebelumnya",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_faqc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "saldo_sesudahnya",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Saldo Sesudahnya",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-08-08 10:03:36.821698",
+ "modified": "2026-05-25 22:07:54.585953",
  "modified_by": "Administrator",
  "module": "OnKoperasi",
  "name": "Transaksi Simpanan",
- "name_case": "UPPER CASE",
- "naming_rule": "Expression",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {
@@ -131,6 +166,7 @@
   }
  ],
  "quick_entry": 1,
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

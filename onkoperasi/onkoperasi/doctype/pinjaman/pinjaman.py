@@ -57,7 +57,14 @@ class Pinjaman(Document):
 				sisa_pinjaman -= pokok
 				i += 1
 
-
+	def check_lunas(self):
+		total_bayar = frappe.db.sum("Pembayaran Pinjaman", 
+									"nominal", 
+									{"pinjaman": self.name, "docstatus": 1})
+		if total_bayar >= self.grand_total:
+			self.status_lunas = 1
+			self.status = "Lunas"
+			self.save()
 @frappe.whitelist()	
 def simulasi_pinjaman(fieldname):
 	doc = frappe.get_doc('Pinjaman',fieldname)
