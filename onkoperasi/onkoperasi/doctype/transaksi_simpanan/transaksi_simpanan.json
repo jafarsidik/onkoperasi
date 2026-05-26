@@ -20,7 +20,8 @@
   "section_break_vrbu",
   "saldo_sebelumnya",
   "column_break_faqc",
-  "saldo_sesudahnya"
+  "saldo_sesudahnya",
+  "amended_from"
  ],
  "fields": [
   {
@@ -141,11 +142,22 @@
    "in_list_view": 1,
    "label": "Saldo Sesudahnya",
    "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Transaksi Simpanan",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2026-05-25 22:07:54.585953",
+ "modified": "2026-05-26 11:06:55.521292",
  "modified_by": "Administrator",
  "module": "OnKoperasi",
  "name": "Transaksi Simpanan",

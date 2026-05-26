@@ -1,0 +1,156 @@
+{
+ "actions": [],
+ "autoname": "JRN-.YYYY.MM.-.####",
+ "creation": "2024-01-01 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "tanggal",
+  "jenis_jurnal",
+  "column_break_1",
+  "referensi_doctype",
+  "referensi_docname",
+  "keterangan",
+  "section_jurnal",
+  "items",
+  "section_total",
+  "total_debit",
+  "total_kredit",
+  "selisih",
+  "is_balanced",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "tanggal",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Tanggal",
+   "reqd": 1
+  },
+  {
+   "fieldname": "jenis_jurnal",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Jenis Jurnal",
+   "options": "Jurnal Umum\nKas Masuk\nKas Keluar\nPenyesuaian\nPenutup",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "referensi_doctype",
+   "fieldtype": "Link",
+   "label": "Referensi DocType",
+   "options": "DocType",
+   "read_only": 1
+  },
+  {
+   "fieldname": "referensi_docname",
+   "fieldtype": "Dynamic Link",
+   "label": "Referensi Dokumen",
+   "options": "referensi_doctype",
+   "read_only": 1
+  },
+  {
+   "fieldname": "keterangan",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Keterangan"
+  },
+  {
+   "fieldname": "section_jurnal",
+   "fieldtype": "Section Break",
+   "label": "Detail Jurnal"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Baris Jurnal",
+   "options": "Jurnal Entry Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_total",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_debit",
+   "fieldtype": "Currency",
+   "label": "Total Debit",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_kredit",
+   "fieldtype": "Currency",
+   "label": "Total Kredit",
+   "read_only": 1
+  },
+  {
+   "fieldname": "selisih",
+   "fieldtype": "Currency",
+   "label": "Selisih",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_balanced",
+   "fieldtype": "Check",
+   "label": "Balanced",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Jurnal Entry",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-05-26 10:11:32.930816",
+ "modified_by": "Administrator",
+ "module": "OnKoperasi",
+ "name": "Jurnal Entry",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Bendahara",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Ketua"
+  },
+  {
+   "read": 1,
+   "role": "Staf"
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "tanggal",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

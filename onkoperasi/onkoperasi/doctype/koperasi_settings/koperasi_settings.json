@@ -1,124 +1,56 @@
 {
- "actions": [],
- "allow_rename": 1,
- "creation": "2026-05-25 22:26:49.515830",
- "doctype": "DocType",
- "engine": "InnoDB",
- "field_order": [
-  "nama_koperasi",
-  "nib",
-  "periode_buku",
-  "column_break_vqbj",
-  "alamat",
-  "akutansi_section",
-  "akun_kas_utama",
-  "akun_simpanan_anggota",
-  "akun_pinjaman_anggota",
-  "akun_pendapatan_bunga",
-  "column_break_xznr",
-  "persentase_cadangan",
-  "persentase_jasa_modal_",
-  "persentase_jasa_transaksi_"
- ],
- "fields": [
-  {
-   "fieldname": "nama_koperasi",
-   "fieldtype": "Data",
-   "label": "Nama Koperasi"
-  },
-  {
-   "fieldname": "nib",
-   "fieldtype": "Data",
-   "label": "NIB"
-  },
-  {
-   "fieldname": "column_break_vqbj",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "alamat",
-   "fieldtype": "Small Text",
-   "label": "Alamat"
-  },
-  {
-   "fieldname": "periode_buku",
-   "fieldtype": "Select",
-   "label": "Periode Buku",
-   "options": "\nan-Des\nsesuai AD/ART"
-  },
-  {
-   "fieldname": "akutansi_section",
-   "fieldtype": "Section Break",
-   "label": "Akutansi"
-  },
-  {
-   "fieldname": "akun_kas_utama",
-   "fieldtype": "Link",
-   "label": "Akun Kas Utama",
-   "options": "Account"
-  },
-  {
-   "fieldname": "akun_simpanan_anggota",
-   "fieldtype": "Link",
-   "label": "Akun Simpanan Anggota",
-   "options": "Account"
-  },
-  {
-   "fieldname": "akun_pinjaman_anggota",
-   "fieldtype": "Link",
-   "label": "Akun Pinjaman Anggota ",
-   "options": "Account"
-  },
-  {
-   "fieldname": "column_break_xznr",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "akun_pendapatan_bunga",
-   "fieldtype": "Link",
-   "label": "Akun Pendapatan Bunga",
-   "options": "Account"
-  },
-  {
-   "fieldname": "persentase_cadangan",
-   "fieldtype": "Percent",
-   "label": "Persentase Cadangan (%)"
-  },
-  {
-   "fieldname": "persentase_jasa_modal_",
-   "fieldtype": "Percent",
-   "label": "Persentase Jasa Modal (%)"
-  },
-  {
-   "fieldname": "persentase_jasa_transaksi_",
-   "fieldtype": "Percent",
-   "label": "Persentase Jasa Transaksi (%)"
-  }
- ],
- "grid_page_length": 50,
- "index_web_pages_for_search": 1,
- "issingle": 1,
- "links": [],
- "modified": "2026-05-25 22:32:13.715047",
- "modified_by": "Administrator",
- "module": "OnKoperasi",
- "name": "Koperasi Settings",
- "owner": "Administrator",
- "permissions": [
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "print": 1,
-   "read": 1,
-   "role": "System Manager",
-   "share": 1,
-   "write": 1
-  }
- ],
- "row_format": "Dynamic",
- "rows_threshold_for_grid_search": 20,
- "sort_field": "creation",
- "sort_order": "DESC",
- "states": []
+  "actions": [],
+  "creation": "2024-01-01 00:00:00",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": [
+    "nama_koperasi","no_badan_hukum","alamat","column_break_1",
+    "no_hp","email","logo",
+    "section_akun","akun_kas","akun_bank","akun_simpanan_pokok",
+    "akun_simpanan_wajib","akun_simpanan_sukarela","column_break_2",
+    "akun_piutang_pinjaman","akun_pendapatan_bunga","akun_pendapatan_admin",
+    "akun_pendapatan_denda","akun_pendapatan_penjualan",
+    "section_shu","persen_cadangan","persen_jasa_modal","persen_jasa_transaksi",
+    "persen_dana_sosial","persen_pengurus","persen_karyawan"
+  ],
+  "fields": [
+    {"fieldname":"nama_koperasi","fieldtype":"Data","label":"Nama Koperasi","reqd":1},
+    {"fieldname":"no_badan_hukum","fieldtype":"Data","label":"No. Badan Hukum"},
+    {"fieldname":"alamat","fieldtype":"Text","label":"Alamat"},
+    {"fieldname":"column_break_1","fieldtype":"Column Break"},
+    {"fieldname":"no_hp","fieldtype":"Data","label":"No. HP / Telp"},
+    {"fieldname":"email","fieldtype":"Data","label":"Email"},
+    {"fieldname":"logo","fieldtype":"Attach Image","label":"Logo"},
+    {"fieldname":"section_akun","fieldtype":"Section Break","label":"Pemetaan Akun Default"},
+    {"fieldname":"akun_kas","fieldtype":"Link","label":"Akun Kas","options":"Akun"},
+    {"fieldname":"akun_bank","fieldtype":"Link","label":"Akun Bank","options":"Akun"},
+    {"fieldname":"akun_simpanan_pokok","fieldtype":"Link","label":"Akun Simpanan Pokok","options":"Akun"},
+    {"fieldname":"akun_simpanan_wajib","fieldtype":"Link","label":"Akun Simpanan Wajib","options":"Akun"},
+    {"fieldname":"akun_simpanan_sukarela","fieldtype":"Link","label":"Akun Simpanan Sukarela","options":"Akun"},
+    {"fieldname":"column_break_2","fieldtype":"Column Break"},
+    {"fieldname":"akun_piutang_pinjaman","fieldtype":"Link","label":"Akun Piutang Pinjaman","options":"Akun"},
+    {"fieldname":"akun_pendapatan_bunga","fieldtype":"Link","label":"Akun Pendapatan Bunga","options":"Akun"},
+    {"fieldname":"akun_pendapatan_admin","fieldtype":"Link","label":"Akun Pendapatan Admin","options":"Akun"},
+    {"fieldname":"akun_pendapatan_denda","fieldtype":"Link","label":"Akun Pendapatan Denda","options":"Akun"},
+    {"fieldname":"akun_pendapatan_penjualan","fieldtype":"Link","label":"Akun Pendapatan Penjualan","options":"Akun"},
+    {"fieldname":"section_shu","fieldtype":"Section Break","label":"Konfigurasi SHU"},
+    {"fieldname":"persen_cadangan","fieldtype":"Percent","label":"% Dana Cadangan","default":"20"},
+    {"fieldname":"persen_jasa_modal","fieldtype":"Percent","label":"% Jasa Modal","default":"30"},
+    {"fieldname":"persen_jasa_transaksi","fieldtype":"Percent","label":"% Jasa Transaksi","default":"25"},
+    {"fieldname":"persen_dana_sosial","fieldtype":"Percent","label":"% Dana Sosial","default":"5"},
+    {"fieldname":"persen_pengurus","fieldtype":"Percent","label":"% Untuk Pengurus","default":"10"},
+    {"fieldname":"persen_karyawan","fieldtype":"Percent","label":"% Untuk Karyawan","default":"10"}
+  ],
+  "issingle": 1,
+  "links": [],
+  "modified": "2024-01-01 00:00:00",
+  "modified_by": "Administrator",
+  "module": "OnKoperasi",
+  "name": "Koperasi Settings",
+  "owner": "Administrator",
+  "permissions": [
+    {"create":1,"delete":0,"read":1,"write":1,"role":"Ketua"},
+    {"create":1,"delete":0,"read":1,"write":1,"role":"Bendahara"}
+  ],
+  "track_changes": 1
 }
