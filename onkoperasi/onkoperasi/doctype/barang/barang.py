@@ -37,4 +37,4 @@ class Barang(Document):
 
 	def on_update(self):
 		stok = self.get_stok()
-		frappe.db.set_value("Item", self.name, "stok_saat_ini", stok)
+		frappe.db.set_value("Barang", self.name, "stok_saat_ini", stok)

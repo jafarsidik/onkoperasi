@@ -11,11 +11,14 @@
   "tanggal_buka",
   "tanggal_tutup",
   "status",
+  "catatan_tutup",
   "column_break_xhif",
   "amended_from",
   "saldo_awal_kas",
   "saldo_akhir_kas",
-  "total_penjualan"
+  "total_penjualan",
+  "kas_fisik",
+  "selisih_kas"
  ],
  "fields": [
   {
@@ -91,14 +94,29 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Status",
-   "options": "\nBuka\nTutup"
+   "options": "\nBuka\nTutup\nPending Approval\nApproved\nRejected"
+  },
+  {
+   "fieldname": "catatan_tutup",
+   "fieldtype": "Small Text",
+   "label": "Catatan Tutup"
+  },
+  {
+   "fieldname": "kas_fisik",
+   "fieldtype": "Currency",
+   "label": "Kas Fisik"
+  },
+  {
+   "fieldname": "selisih_kas",
+   "fieldtype": "Currency",
+   "label": "Selisih Kas"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-26 11:43:22.481700",
+ "modified": "2026-05-26 13:53:12.774848",
  "modified_by": "Administrator",
  "module": "OnKoperasi",
  "name": "POS Session",
