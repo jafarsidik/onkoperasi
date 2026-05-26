@@ -8,14 +8,18 @@
  "field_order": [
   "section_break_1",
   "pinjaman",
+  "anggota_nama",
   "tgl_bayar",
   "nominal",
   "column_break_5",
   "tgl_tempo",
   "pembayaran_ke",
   "jumlah_pinjaman",
+  "denda",
+  "pokok",
   "section_break_9",
-  "keterangan"
+  "keterangan",
+  "amended_from"
  ],
  "fields": [
   {
@@ -27,16 +31,17 @@
    "reqd": 1
   },
   {
-   "fetch_from": "pinjaman.tanggal_jatuh_tempo",
    "fieldname": "tgl_tempo",
    "fieldtype": "Date",
    "label": "Tgl Tempo",
    "read_only": 1
   },
   {
+   "default": "Today",
    "fieldname": "tgl_bayar",
    "fieldtype": "Date",
-   "label": "Tgl Bayar"
+   "label": "Tgl Bayar",
+   "reqd": 1
   },
   {
    "fieldname": "keterangan",
@@ -72,11 +77,45 @@
   {
    "fieldname": "section_break_9",
    "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "denda",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Denda",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "pokok",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Pokok",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Pembayaran Pinjaman",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fetch_from": "pinjaman.nama_lengkap",
+   "fieldname": "anggota_nama",
+   "fieldtype": "Data",
+   "label": "Nama Anggota",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2022-08-15 08:57:18.824793",
+ "modified": "2026-05-26 11:02:06.943253",
  "modified_by": "Administrator",
  "module": "OnKoperasi",
  "name": "Pembayaran Pinjaman",
@@ -95,6 +134,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

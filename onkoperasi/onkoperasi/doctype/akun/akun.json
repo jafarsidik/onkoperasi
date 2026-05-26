@@ -1,0 +1,125 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "autoname": "field:kode_akun",
+ "creation": "2024-01-01 00:00:00",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "kode_akun",
+  "nama_akun",
+  "tipe_akun",
+  "column_break_1",
+  "normal_balance",
+  "akun_induk",
+  "is_group",
+  "aktif",
+  "section_break_2",
+  "keterangan"
+ ],
+ "fields": [
+  {
+   "fieldname": "kode_akun",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Kode Akun",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "nama_akun",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Nama Akun",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tipe_akun",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Tipe Akun",
+   "options": "Aktiva\nKewajiban\nModal\nPendapatan\nBeban",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "normal_balance",
+   "fieldtype": "Select",
+   "label": "Normal Balance",
+   "options": "Debit\nKredit",
+   "reqd": 1
+  },
+  {
+   "fieldname": "akun_induk",
+   "fieldtype": "Link",
+   "label": "Akun Induk",
+   "options": "Akun"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "label": "Akun Grup"
+  },
+  {
+   "default": "1",
+   "fieldname": "aktif",
+   "fieldtype": "Check",
+   "label": "Aktif"
+  },
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "keterangan",
+   "fieldtype": "Small Text",
+   "label": "Keterangan"
+  }
+ ],
+ "links": [],
+ "modified": "2026-05-26 10:30:21.057249",
+ "modified_by": "Administrator",
+ "module": "OnKoperasi",
+ "name": "Akun",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Bendahara",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Ketua",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "report": 1,
+   "role": "Staf"
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "kode_akun",
+ "sort_order": "ASC",
+ "states": [],
+ "title_field": "nama_akun"
+}

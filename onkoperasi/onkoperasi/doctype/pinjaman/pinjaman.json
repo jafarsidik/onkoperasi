@@ -25,6 +25,7 @@
   "jasa_bunga",
   "satuan_jangka_waktu",
   "amended_from",
+  "persen_denda",
   "pinjaman_section",
   "tanggal_di_setujui",
   "catatan",
@@ -341,12 +342,17 @@
    "fieldtype": "Table",
    "label": "Potongan Pinjaman",
    "options": "Potongan Pinjaman"
+  },
+  {
+   "fieldname": "persen_denda",
+   "fieldtype": "Percent",
+   "label": "Denda (%)"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-25 22:24:58.638462",
+ "modified": "2026-05-26 10:37:55.272898",
  "modified_by": "Administrator",
  "module": "OnKoperasi",
  "name": "Pinjaman",

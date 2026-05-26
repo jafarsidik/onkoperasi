@@ -24,6 +24,7 @@ fixtures = [
 	},
     {"doctype":"Jenis Simpanan"},
     {"doctype":"Jenis Pinjaman"},
+    {"doctype": "Akun"},
 
 
 ]
@@ -130,13 +131,14 @@ fixtures = [
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
+scheduler_events = {
 # 	"all": [
 # 		"onkoperasi.tasks.all"
 # 	],
-# 	"daily": [
+	"daily": [
 # 		"onkoperasi.tasks.daily"
-# 	],
+		"onkoperasi.tasks.cek_jatuh_tempo",
+	],
 # 	"hourly": [
 # 		"onkoperasi.tasks.hourly"
 # 	],
@@ -146,7 +148,7 @@ fixtures = [
 # 	"monthly": [
 # 		"onkoperasi.tasks.monthly"
 # 	],
-# }
+}
 
 # Testing
 # -------

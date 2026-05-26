@@ -12,6 +12,7 @@ class Pinjaman(Document):
 		if self.status_realisasi == 'Already Realized':
 		#if self.status == 'Approved':
 			self.pembayaran_pinjaman()
+			
 	def pembayaran_pinjaman(self):
 		tempo	= self.tanggal_realisasi
 		plafon	= self.plafon
@@ -65,6 +66,7 @@ class Pinjaman(Document):
 			self.status_lunas = 1
 			self.status = "Lunas"
 			self.save()
+
 @frappe.whitelist()	
 def simulasi_pinjaman(fieldname):
 	doc = frappe.get_doc('Pinjaman',fieldname)
