@@ -569,7 +569,7 @@ class POSKoperasi {
         const d = new frappe.ui.Dialog({
             title: '👤 Pilih Pelanggan / Anggota',
             fields: [
-                { label: 'Cari Anggota', fieldname: 'q', fieldtype: 'Data', description: 'Nama atau nomor anggota' }
+                { label: 'Cari Anggota', fieldname: 'q', fieldtype: 'Link', options: 'Anggota', description: 'Nama atau nomor anggota' }
             ],
             primary_action_label: 'Cari',
             primary_action: async (v) => {
