@@ -10,7 +10,7 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": null,
- "modified": "2026-05-31 22:36:36.097978",
+ "modified": "2026-06-02 17:47:15.458716",
  "modified_by": "Administrator",
  "module": "OnKoperasi",
  "name": "Penjualan",
@@ -19,16 +19,6 @@
  "ref_doctype": "Nota Penjualan",
  "report_name": "Penjualan",
  "report_type": "Script Report",
- "roles": [
-  {
-   "role": "Bendahara"
-  },
-  {
-   "role": "Ketua"
-  },
-  {
-   "role": "Staf"
-  }
- ],
+ "roles": [],
  "timeout": 0
 }

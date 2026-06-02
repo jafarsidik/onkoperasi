@@ -10,7 +10,7 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": null,
- "modified": "2026-05-31 19:32:05.138975",
+ "modified": "2026-06-02 17:47:56.267215",
  "modified_by": "Administrator",
  "module": "OnKoperasi",
  "name": "Buku Besar",
@@ -19,16 +19,6 @@
  "ref_doctype": "Jurnal Entry",
  "report_name": "Buku Besar",
  "report_type": "Script Report",
- "roles": [
-  {
-   "role": "Bendahara"
-  },
-  {
-   "role": "Ketua"
-  },
-  {
-   "role": "Staf"
-  }
- ],
+ "roles": [],
  "timeout": 0
 }

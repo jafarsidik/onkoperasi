@@ -10,7 +10,7 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": null,
- "modified": "2026-06-01 06:04:13.741527",
+ "modified": "2026-06-02 17:47:09.791672",
  "modified_by": "Administrator",
  "module": "OnKoperasi",
  "name": "SHU Anggota",
@@ -19,16 +19,6 @@
  "ref_doctype": "Jurnal Entry",
  "report_name": "SHU Anggota",
  "report_type": "Script Report",
- "roles": [
-  {
-   "role": "Bendahara"
-  },
-  {
-   "role": "Ketua"
-  },
-  {
-   "role": "Staf"
-  }
- ],
+ "roles": [],
  "timeout": 0
 }
