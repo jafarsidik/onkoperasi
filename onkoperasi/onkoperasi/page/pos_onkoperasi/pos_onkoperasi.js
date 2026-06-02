@@ -1091,30 +1091,80 @@ class POSKoperasi {
         } catch(e) {}
     }
 
-    close_shift_flow() {
+    async close_shift_flow() {
         if (!this.session) { frappe.show_alert({message:'Tidak ada sesi aktif', indicator:'orange'}); return; }
+        const s = await frappe.db.get_doc('POS Session', this.session);
+        const saldo_awal = s.saldo_awal_kas || 0;
+        const invoices = await frappe.db.get_list('Nota Penjualan', {
+            filters: { pos_session: this.session, metode_bayar: 'Tunai', docstatus: 1 },
+            fields: ['total'],
+            limit: 1000
+        });
+        const tunai_total = invoices.reduce((s,i) => s + (i.total||0), 0);
+        const expected = saldo_awal + tunai_total;
+               
         const d = new frappe.ui.Dialog({
             title: '⏹ Tutup Sesi Kasir',
+            
             fields: [
-                { label: 'Kas Fisik Akhir (Rp)', fieldname: 'kas_akhir', fieldtype: 'Currency', reqd: 1 },
+                { label: 'Saldo Awal (Rp)', fieldname: 'saldo_awal_kas', fieldtype: 'Currency', read_only: 1, default:saldo_awal },
+                { label: 'Penjualan Tunai (Rp)', fieldname: 'total_penjualan', fieldtype: 'Currency', read_only: 1, default:tunai_total },
+                { label: 'Kas Seharusnya (Rp)', fieldname: 'expected', fieldtype: 'Currency', read_only: 1, default:expected },
+                { label: 'Kas Fisik Akhir (Rp)', fieldname: 'kas_akhir', fieldtype: 'Currency', reqd: 1,
+                    onchange:()=>{
+                        const kas_akhir = flt(d.get_value('kas_akhir'));
+                        const selisih = kas_akhir-expected;
+                        d.set_value('selisih',selisih);
+                      
+                        if(selisih >0){
+                            frappe.show_alert({ message: "Lebih Rp. "+fmt_rp(Math.abs(selisih)), indicator: 'yellow' });
+                        }else if(selisih < 0){
+                            frappe.show_alert({ message: 'Kurang Rp. ' + fmt_rp(Math.abs(selisih)), indicator: 'red' });
+                        }else{
+                            frappe.show_alert({ message: 'Balance', indicator: 'green' });
+                           
+                        }
+                    }
+                },
+                { label: 'Selisih (Rp)', fieldname: 'selisih', fieldtype: 'Currency', read_only: 1},
+                { label: 'Alasan Selisih', fieldname: 'alasan_selisih', fieldtype: 'Small Text' },
                 { label: 'Catatan Penutupan', fieldname: 'catatan', fieldtype: 'Small Text' }
             ],
             primary_action_label: 'Ajukan Penutupan',
             primary_action: async (v) => {
                 try {
+                    const kas_akhir = flt(v.kas_akhir);
+                    const selisih =  kas_akhir - expected
+                    d.set_value('selisih',selisih)
+                    if(selisih >0){
+                        frappe.show_alert({ message: "Lebih Rp. "+fmt_rp(Math.abs(selisih)), indicator: 'yellow' });
+                    }else if(selisih < 0){
+                        frappe.show_alert({ message: 'Kurang Rp. ' + fmt_rp(Math.abs(selisih)), indicator: 'red' });
+                    }else{
+                        frappe.show_alert({ message: 'Balance', indicator: 'green' });
+                    }
+
+                    if( selisih !== 0 && !v.alasan_selisih){
+                        frappe.show_alert({ message: 'Alasan Selisih Harus di isi', indicator: 'blue' });
+                        return;
+                    }
                     await frappe.db.set_value('POS Session', this.session, {
                         kas_fisik: v.kas_akhir,
+                        alasan_selisih: v.alasan_selisih,
+                        selisih_kas: v.selisih,
                         catatan_tutup: v.catatan,
                         status: 'Pending Approval'
                     });
                     frappe.show_alert({ message: 'Penutupan diajukan, menunggu approval manajer', indicator: 'blue' });
                     d.hide();
                     this.load_shift_history();
+                    window.location.reload();
                 } catch(e) {
                     frappe.show_alert({ message: 'Error: ' + e.message, indicator: 'red' });
                 }
             }
         });
+        
         d.show();
     }
 
@@ -1356,14 +1406,38 @@ class POSKoperasi {
     buka_sesi_dialog() {
         const d = new frappe.ui.Dialog({
             title: '▶ Buka Sesi Kasir',
+            static: true,
             fields: [
-                { label: 'Saldo Awal Kas (Rp)', fieldname: 'saldo_awal', fieldtype: 'Currency', reqd: 1,
-                  description: 'Jumlah uang tunai di laci kasir saat ini' }
+                {
+                    label:"POS Outlet",
+                    fieldname:'pos_outlet',
+                    fieldtype:'Link',
+                    options:"POS Outlet",
+                    reqd:1,
+                    description:'Outlate'
+                },
+                {
+                    label:"POS Name",
+                    fieldname:'pos_name',
+                    fieldtype:'Data',
+                    reqd:1,
+                    placheholder:'Kasir 1',
+                    description:'Workstation / Device Name / PC Name'
+                },
+                { 
+                    label: 'Saldo Awal Kas (Rp)',
+                    fieldname: 'saldo_awal',
+                    fieldtype: 'Currency',
+                    reqd: 1,
+                    description: 'Jumlah uang tunai di laci kasir saat ini'
+                }
             ],
             primary_action_label: 'Mulai Sesi',
             primary_action: async (values) => {
                 try {
                     const session = frappe.model.get_new_doc('POS Session');
+                    session.pos_outlet = values.pos_outlet;
+                    session.pos_name = values.pos_name;
                     session.kasir = frappe.session.user;
                     session.saldo_awal_kas = values.saldo_awal;
                     session.status = 'Buka';

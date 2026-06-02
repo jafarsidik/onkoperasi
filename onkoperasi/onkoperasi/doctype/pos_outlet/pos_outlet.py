@@ -1,10 +1,9 @@
 # Copyright (c) 2026, IDMS and contributors
 # For license information, please see license.txt
 
-import frappe
+# import frappe
 from frappe.model.document import Document
 
 
-class POSSession(Document):
-	def on_submit(self):
-		self.status = "Tutup"
+class POSOutlet(Document):
+	pass

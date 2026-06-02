@@ -187,7 +187,7 @@
    "collapsible": 1,
    "indent": 0,
    "keep_closed": 0,
-   "label": "Open POS",
+   "label": "POS",
    "link_to": "pos-onkoperasi",
    "link_type": "Page",
    "show_arrow": 0,
@@ -200,6 +200,17 @@
    "keep_closed": 0,
    "label": "POS Session",
    "link_to": "POS Session",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 1,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "POS Outlet",
+   "link_to": "POS Outlet",
    "link_type": "DocType",
    "show_arrow": 0,
    "type": "Link"
@@ -382,7 +393,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-06-01 10:35:19.541394",
+ "modified": "2026-06-02 20:47:13.707325",
  "modified_by": "Administrator",
  "module": "OnKoperasi",
  "name": "OnKoperasi",

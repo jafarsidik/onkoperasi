@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "autoname": "JRN-.YYYY.MM.-.####",
  "creation": "2024-01-01 00:00:00",
  "doctype": "DocType",
@@ -117,7 +118,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-26 10:11:32.930816",
+ "modified": "2026-06-02 19:38:34.866346",
  "modified_by": "Administrator",
  "module": "OnKoperasi",
  "name": "Jurnal Entry",
@@ -130,22 +131,17 @@
    "create": 1,
    "delete": 1,
    "email": 1,
+   "export": 1,
+   "import": 1,
+   "mask": 1,
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Bendahara",
+   "role": "System Manager",
+   "select": 1,
+   "share": 1,
    "submit": 1,
    "write": 1
-  },
-  {
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "Ketua"
-  },
-  {
-   "read": 1,
-   "role": "Staf"
   }
  ],
  "row_format": "Dynamic",
