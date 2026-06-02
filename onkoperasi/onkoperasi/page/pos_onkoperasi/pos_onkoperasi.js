@@ -46,6 +46,7 @@ class POSKoperasi {
         this.scanner_active = false;
 
         this.render_shell();
+        this.switch_mobile_panel();
         this.bind_tab_nav();
         this.render_pos_tab();
         this.render_shift_tab();
@@ -62,7 +63,12 @@ class POSKoperasi {
             @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap');
             #pos-shell * { box-sizing: border-box; }
             #pos-shell { font-family: 'Plus Jakarta Sans', sans-serif; background: #f0f2f7; min-height: 100vh; }
-            .pos-nav { display:flex; gap:4px; background:#1e2235; padding:10px 16px; border-radius:10px; margin-bottom:12px; align-items:center; }
+
+            /* ── NAV ── */
+            .pos-nav {
+                display:flex; gap:4px; background:#1e2235; padding:10px 16px;
+                border-radius:10px; margin-bottom:12px; align-items:center;
+            }
             .pos-nav-btn { padding:7px 20px; border-radius:7px; border:none; cursor:pointer; font-size:13px; font-weight:600; font-family:inherit; transition:all .18s; color:#9aa3b8; background:transparent; }
             .pos-nav-btn.active { background:#4f63d2; color:#fff; }
             .pos-nav-btn:hover:not(.active) { background:#2a2f4a; color:#fff; }
@@ -98,25 +104,139 @@ class POSKoperasi {
             .modal-box { background:#fff; border-radius:14px; padding:24px; min-width:380px; max-width:92vw; max-height:90vh; overflow-y:auto; box-shadow:0 20px 60px rgba(0,0,0,.18); }
             .modal-title { font-size:16px; font-weight:800; color:#1e2235; margin-bottom:16px; }
             .divider { border:none; border-top:1px solid #edf0f7; margin:12px 0; }
+
+            /* ── MOBILE SWITCHER: tersembunyi by default (PC) ── */
+            #mobile-panel-switcher { display: none; }
+
+            /* ── RESPONSIVE ── */
+            @media (max-width: 768px) {
+                #pos-shell { padding-bottom: 70px; }
+
+                /* Sembunyikan top nav di mobile, ganti dengan bottom nav */
+                .pos-nav {
+                    position: fixed; bottom: 0; left: 0; right: 0; top: auto;
+                    border-radius: 0; margin-bottom: 0; z-index: 1000;
+                    padding: 6px 8px; justify-content: space-around;
+                    border-top: 1px solid #2a2f4a;
+                }
+                .pos-nav-brand { display: none !important; }
+                .pos-nav-info { display: none !important; }
+                .pos-nav-btn {
+                    flex: 1; padding: 5px 4px; font-size: 10px;
+                    display: flex; flex-direction: column; align-items: center; gap: 2px;
+                }
+
+                /* Mobile panel switcher tampil */
+                #mobile-panel-switcher {
+                    display: flex !important;
+                    position: sticky; top: 0; z-index: 100;
+                    background: #fff; border-bottom: 2px solid #edf0f7;
+                    padding: 8px 10px; gap: 6px; margin-bottom: 10px;
+                    border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,.07);
+                }
+                .mpanel-btn {
+                    flex: 1; padding: 8px 4px; border-radius: 8px;
+                    border: 1px solid #dde1ec; font-size: 12px; font-weight: 700;
+                    cursor: pointer; text-align: center; background: #f8f9fb;
+                    color: #6b7280; font-family: inherit; transition: all .15s;
+                }
+                .mpanel-btn.active { background: #4f63d2; color: #fff; border-color: #4f63d2; }
+
+                /* POS layout: stack vertikal */
+                #pos-layout {
+                    flex-direction: column !important;
+                    height: auto !important;
+                    gap: 10px;
+                }
+                #panel-catalog {
+                    width: 100% !important;
+                    flex: none !important;
+                    height: auto !important;
+                    max-height: 75vh;
+                    overflow: hidden;
+                }
+                #panel-cart {
+                    width: 100% !important;
+                    min-height: 60vh;
+                }
+                #panel-payment {
+                    width: 100% !important;
+                }
+
+                /* Panel switching di mobile */
+                #panel-catalog.m-hidden,
+                #panel-cart.m-hidden,
+                #panel-payment.m-hidden { display: none !important; }
+
+                /* Item grid mobile */
+                #item-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)) !important; }
+
+                /* Qty button lebih besar */
+                .qty-btn { width: 30px !important; height: 30px !important; font-size: 15px !important; }
+
+                /* Shift & Refund: 1 kolom */
+                .responsive-grid-2 { grid-template-columns: 1fr !important; }
+
+                /* Tab POS tidak perlu height penuh */
+                #tab-pos { height: auto !important; }
+            }
         </style>
+
         <div id="pos-shell">
+            <!-- Mobile panel switcher (hanya tampil di mobile via CSS) -->
+            <div id="mobile-panel-switcher">
+                <button class="mpanel-btn active" onclick="window.posApp.switch_mobile_panel('catalog')">🛍 Katalog</button>
+                <button class="mpanel-btn" onclick="window.posApp.switch_mobile_panel('cart')">
+                    🛒 Keranjang&nbsp;<span id="cart-badge" style="background:#e74c3c;color:#fff;border-radius:99px;padding:1px 6px;font-size:10px;">0</span>
+                </button>
+                <button class="mpanel-btn" onclick="window.posApp.switch_mobile_panel('payment')">💳 Bayar</button>
+            </div>
+
+            <!-- Top nav (PC) / Bottom nav (Mobile via CSS) -->
             <div class="pos-nav">
-                <div style="color:#fff; font-weight:800; font-size:15px; margin-right:16px; letter-spacing:.5px;">⚡ POS<span style="color:#818cf8">Koperasi</span></div>
+                <div class="pos-nav-brand" style="color:#fff; font-weight:800; font-size:15px; margin-right:16px; letter-spacing:.5px;">⚡ POS<span style="color:#818cf8">Koperasi</span></div>
                 <button class="pos-nav-btn active" data-tab="pos">🛒 Kasir</button>
                 <button class="pos-nav-btn" data-tab="shift">🔄 Shift</button>
-                <button class="pos-nav-btn" data-tab="refund">↩ Refund & Return</button>
-                <div style="flex:1"></div>
-                <span style="color:#9aa3b8; font-size:12px; margin-right:8px;">Kasir: <strong style="color:#fff">${frappe.session.user_fullname||frappe.session.user}</strong></span>
-                <span style="color:#9aa3b8; font-size:12px; margin-right:12px;">Sesi: <strong id="session-name" style="color:#818cf8">-</strong></span>
-                <button onclick="window.posApp.tutup_sesi()" class="btn-danger btn-sm">Tutup Sesi</button>
+                <button class="pos-nav-btn" data-tab="refund">↩ Refund</button>
+                <div class="pos-nav-brand" style="flex:1"></div>
+                <div class="pos-nav-info" style="display:flex; align-items:center; gap:12px;">
+                    <span style="color:#9aa3b8; font-size:12px;">Kasir: <strong style="color:#fff">${frappe.session.user_fullname||frappe.session.user}</strong></span>
+                    <span style="color:#9aa3b8; font-size:12px;">Sesi: <strong id="session-name" style="color:#818cf8">-</strong></span>
+                    <button onclick="window.posApp.tutup_sesi()" class="btn-danger btn-sm">Tutup Sesi</button>
+                </div>
             </div>
+
             <div id="tab-pos" class="pos-tab"></div>
             <div id="tab-shift" class="pos-tab"></div>
             <div id="tab-refund" class="pos-tab"></div>
         </div>`);
         window.posApp = this;
     }
+    switch_mobile_panel(panel) {
+        // Hanya aktif di mobile
+        if (window.innerWidth > 768) return;
 
+        const panels = {
+            catalog: document.getElementById('panel-catalog'),
+            cart:    document.getElementById('panel-cart'),
+            payment: document.getElementById('panel-payment')
+        };
+
+        // Sembunyikan semua, tampilkan yang dipilih
+        Object.entries(panels).forEach(([key, el]) => {
+            if (!el) return;
+            if (key === panel) {
+                el.classList.remove('m-hidden');
+            } else {
+                el.classList.add('m-hidden');
+            }
+        });
+
+        // Update tombol aktif
+        document.querySelectorAll('.mpanel-btn').forEach((btn, i) => {
+            btn.classList.toggle('active', ['catalog','cart','payment'][i] === panel);
+        });
+    }
     bind_tab_nav() {
         $(this.wrapper).find('.pos-nav-btn').on('click', (e) => {
             const tab = $(e.currentTarget).data('tab');
@@ -130,7 +250,15 @@ class POSKoperasi {
         $(this.wrapper).find(`.pos-nav-btn[data-tab="${tab}"]`).addClass('active');
         $(this.wrapper).find('.pos-tab').removeClass('active');
         $(`#tab-${tab}`).addClass('active');
-        if (tab === 'shift') this.load_shift_history();
+
+        // Tampilkan/sembunyikan mobile switcher
+        const switcher = document.getElementById('mobile-panel-switcher');
+        if (switcher) {
+            switcher.style.display = (tab === 'pos') ? '' : 'none';
+            // CSS tetap mengontrol display:none di PC
+        }
+
+        if (tab === 'shift')  this.load_shift_history();
         if (tab === 'refund') this.load_refund_history();
     }
 
@@ -139,9 +267,11 @@ class POSKoperasi {
     // ══════════════════════════════════════════════════════════
     render_pos_tab() {
         $('#tab-pos').html(`
-        <div style="display:flex; gap:12px; height:calc(100vh - 110px);">
+        <div id="pos-layout" style="display:flex; gap:12px; height:calc(100vh - 110px);">
+        
             <!-- LEFT: Catalog -->
-            <div style="flex:1.5; display:flex; flex-direction:column; gap:10px; overflow:hidden;">
+            <div id="panel-catalog" style="flex:1.5; display:flex; flex-direction:column; gap:10px; overflow:hidden;">
+            
                 <!-- Search + barcode -->
                 <div style="display:flex; gap:8px;">
                     <div style="position:relative; flex:1;">
@@ -177,12 +307,12 @@ class POSKoperasi {
             </div>
             
             <!-- RIGHT: Cart -->
-             <div style="width:310px; display:flex; flex-direction:column; border-radius:12px; overflow:hidden;
+             <div id="panel-cart" style="width:310px; display:flex; flex-direction:column; border-radius:12px; overflow:hidden;
                 box-shadow:0 2px 14px rgba(0,0,0,.08); background:#fff;">
                   <!-- Cart list -->
                 <div id="cart-list" style="flex:1; overflow-y:auto; padding:8px 12px; min-height:0;"></div>
             </div>
-            <div style="width:380px; display:flex; flex-direction:column; border-radius:12px; overflow:hidden;
+            <div id="panel-payment" style="width:380px; display:flex; flex-direction:column; border-radius:12px; overflow:hidden;
                 box-shadow:0 2px 14px rgba(0,0,0,.08); background:#fff;">
 
                 <!-- Customer -->
@@ -264,6 +394,10 @@ class POSKoperasi {
                         <label>Jumlah Diterima</label>
                         <input id="pos-bayar" type="number" placeholder="0" style="margin-bottom:6px;"
                             oninput="window.posApp.hitung_kembalian()">
+                        
+                        <!-- Shortcut nominal -->
+                        <div id="nominal-shortcuts" style="display:grid; grid-template-columns:repeat(3,1fr); gap:5px; margin-bottom:8px;"></div>
+
                         <div style="font-size:13px; display:flex; justify-content:space-between;">
                             <span>Kembalian:</span>
                             <strong id="pos-kembalian" style="color:#059669;">Rp 0</strong>
@@ -576,8 +710,92 @@ class POSKoperasi {
             </div>`;
         }).join('');
         this.update_totals();
+        // Update cart badge di mobile switcher
+        // Update badge mobile
+        const badge = document.getElementById('cart-badge');
+        const total_qty = this.cart.reduce((s, i) => s + i.qty, 0);
+        if (badge) badge.textContent = total_qty;
+    }
+    render_nominal_shortcuts() {
+        const container = document.getElementById('nominal-shortcuts');
+        if (!container) return;
+
+        const total = this.get_total();
+
+        // Hitung nominal pas + pecahan di atasnya
+        const pecahan = [1000, 2000, 5000, 10000, 20000, 50000, 100000];
+
+        // Cari pecahan terdekat >= total untuk "Uang Pas"
+        const uang_pas = pecahan.find(p => p >= total) || Math.ceil(total / 1000) * 1000;
+
+        // Buat set shortcut: uang pas, lalu beberapa kelipatan di atasnya
+        const shortcuts = new Set();
+        shortcuts.add(total);                          // Uang pas exact
+        shortcuts.add(uang_pas);                       // Pecahan terdekat
+
+        // Tambah 2 nominal di atas uang_pas
+        let idx = pecahan.indexOf(uang_pas);
+        if (idx === -1) idx = pecahan.length - 1;
+        for (let i = 1; i <= 2; i++) {
+            if (pecahan[idx + i]) shortcuts.add(pecahan[idx + i]);
+        }
+
+        // Jika total > 100.000, tambah kelipatan 50rb / 100rb
+        if (total > 100000) {
+            const mult50  = Math.ceil(total / 50000)  * 50000;
+            const mult100 = Math.ceil(total / 100000) * 100000;
+            shortcuts.add(mult50);
+            shortcuts.add(mult100);
+        }
+
+        // Selalu sertakan 50.000 dan 100.000 sebagai shortcut umum
+        shortcuts.add(50000);
+        shortcuts.add(100000);
+
+        // Ambil 6 nominal unik terdekat >= total, urutkan
+        const sorted = [...shortcuts]
+            .filter(n => n >= total)
+            .sort((a, b) => a - b)
+            .slice(0, 6);
+
+        // Render tombol
+        container.innerHTML = sorted.map(nominal => {
+            const isExact = nominal === total;
+            return `
+            <button onclick="window.posApp.set_bayar(${nominal})"
+                style="padding:7px 4px; border-radius:8px; font-size:11px; font-weight:700;
+                font-family:inherit; cursor:pointer; transition:all .15s; line-height:1.3;
+                border: 1.5px solid ${isExact ? '#059669' : '#dde1ec'};
+                background: ${isExact ? '#d1fae5' : '#f8f9fb'};
+                color: ${isExact ? '#065f46' : '#374151'};"
+                onmouseover="this.style.background='${isExact ? '#a7f3d0' : '#e8eaf2'}'"
+                onmouseout="this.style.background='${isExact ? '#d1fae5' : '#f8f9fb'}'">
+                ${isExact ? '✓ Pas' : ''} ${this.fmt_nominal(nominal)}
+            </button>`;
+        }).join('');
     }
 
+    set_bayar(nominal) {
+        const input = document.getElementById('pos-bayar');
+        if (input) {
+            input.value = nominal;
+            this.hitung_kembalian();
+
+            // Visual feedback: flash input
+            input.style.borderColor = '#4f63d2';
+            input.style.background = '#f0f4ff';
+            setTimeout(() => {
+                input.style.borderColor = '';
+                input.style.background = '';
+            }, 400);
+        }
+    }
+
+    fmt_nominal(val) {
+        if (val >= 1000000) return (val / 1000000) + ' Jt';
+        if (val >= 1000)    return (val / 1000) + ' Rb';
+        return 'Rp ' + val;
+    }
     update_totals() {
         let subtotal = 0;
         this.cart.forEach(i => { subtotal += i.qty * i.harga * (1 - i.diskon/100); });
@@ -612,6 +830,7 @@ class POSKoperasi {
         }
 
         this.hitung_kembalian();
+        this.render_nominal_shortcuts(); // ← tambahkan ini
     }
 
     get_total() {
@@ -645,9 +864,10 @@ class POSKoperasi {
 
     on_metode_change() {
         const val = document.getElementById('pos-metode').value;
-        document.getElementById('tunai-section').style.display = val === 'Tunai' ? 'block' : 'none';
-        document.getElementById('multi-section').style.display = val === 'Multi' ? 'block' : 'none';
+        document.getElementById('tunai-section').style.display  = val === 'Tunai' ? 'block' : 'none';
+        document.getElementById('multi-section').style.display  = val === 'Multi' ? 'block' : 'none';
         if (val === 'Multi') this.init_multi_splits();
+        if (val === 'Tunai') this.render_nominal_shortcuts(); // ← tambahkan ini
     }
 
     // ── Multi Payment ─────────────────────────────────────────
@@ -962,7 +1182,8 @@ class POSKoperasi {
     // ══════════════════════════════════════════════════════════
     render_shift_tab() {
         $('#tab-shift').html(`
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+        
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;" class="responsive-grid-2">
             <!-- Left: Shift controls -->
             <div style="display:flex; flex-direction:column; gap:14px;">
                 <!-- Current session info -->
@@ -1173,7 +1394,7 @@ class POSKoperasi {
     // ══════════════════════════════════════════════════════════
     render_refund_tab() {
         $('#tab-refund').html(`
-        <div style="display:grid; grid-template-columns:1.1fr 1fr; gap:14px;">
+        <div style="display:grid; grid-template-columns:1.1fr 1fr; gap:14px;" class="responsive-grid-2">
             <!-- Left: New refund -->
             <div class="card" style="padding:20px;">
                 <div class="section-title">↩ Proses Return / Refund</div>
