@@ -1,0 +1,57 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Kategori Barang",
+  "is_group": 1,
+  "keterangan": null,
+  "modified": "2026-05-26 11:33:00.950931",
+  "nama_kategori": "Makanan",
+  "name": "Makanan",
+  "old_parent": null,
+  "parent_kategori_barang": null
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Kategori Barang",
+  "is_group": 0,
+  "keterangan": null,
+  "modified": "2026-05-26 11:34:46.402344",
+  "nama_kategori": "Makanan Ringan",
+  "name": "Makanan Ringan",
+  "old_parent": null,
+  "parent_kategori_barang": "Makanan"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Kategori Barang",
+  "is_group": 1,
+  "keterangan": null,
+  "modified": "2026-05-26 11:35:10.021518",
+  "nama_kategori": "Roko",
+  "name": "Roko",
+  "old_parent": null,
+  "parent_kategori_barang": null
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Kategori Barang",
+  "is_group": 1,
+  "keterangan": null,
+  "modified": "2026-05-26 11:33:09.184885",
+  "nama_kategori": "Minuman",
+  "name": "Minuman",
+  "old_parent": null,
+  "parent_kategori_barang": null
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Kategori Barang",
+  "is_group": 0,
+  "keterangan": null,
+  "modified": "2026-05-26 11:34:21.585575",
+  "nama_kategori": "Makanan Berat",
+  "name": "Makanan Berat",
+  "old_parent": null,
+  "parent_kategori_barang": "Makanan"
+ }
+]

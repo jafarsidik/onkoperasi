@@ -16,7 +16,12 @@
   "is_group",
   "aktif",
   "section_break_2",
-  "keterangan"
+  "keterangan",
+  "lft",
+  "rgt",
+  "is_group",
+  "old_parent",
+  "parent_akun"
  ],
  "fields": [
   {
@@ -81,14 +86,52 @@
    "fieldname": "keterangan",
    "fieldtype": "Small Text",
    "label": "Keterangan"
+  },
+  {
+   "fieldname": "lft",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Left",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "rgt",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Right",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "label": "Akun Grup"
+  },
+  {
+   "fieldname": "old_parent",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Old Parent",
+   "options": "Akun"
+  },
+  {
+   "fieldname": "parent_akun",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Parent Akun",
+   "options": "Akun"
   }
  ],
+ "is_tree": 1,
  "links": [],
- "modified": "2026-05-26 10:30:21.057249",
+ "modified": "2026-06-01 18:43:09.571423",
  "modified_by": "Administrator",
  "module": "OnKoperasi",
  "name": "Akun",
  "naming_rule": "By fieldname",
+ "nsm_parent_field": "parent_akun",
  "owner": "Administrator",
  "permissions": [
   {

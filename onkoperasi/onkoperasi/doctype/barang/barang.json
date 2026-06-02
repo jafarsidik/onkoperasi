@@ -13,6 +13,8 @@
   "column_break_ksfr",
   "satuan",
   "aktif",
+  "is_selling",
+  "is_assets",
   "amended_from",
   "gambar",
   "harga_section",
@@ -127,7 +129,7 @@
   {
    "default": "0",
    "fieldname": "margin_nominal",
-   "fieldtype": "Percent",
+   "fieldtype": "Currency",
    "in_list_view": 1,
    "label": "Margin (Rp)",
    "read_only": 1
@@ -171,13 +173,28 @@
    "fieldname": "keterangan",
    "fieldtype": "Small Text",
    "label": "Keterangan"
+  },
+  {
+   "default": "1",
+   "fieldname": "is_selling",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Is Selling"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_assets",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Is Assets"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
- "is_submittable": 1,
  "links": [],
- "modified": "2026-05-26 11:58:40.910839",
+ "modified": "2026-06-01 13:51:25.529238",
  "modified_by": "Administrator",
  "module": "OnKoperasi",
  "name": "Barang",
@@ -194,7 +211,6 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
-   "submit": 1,
    "write": 1
   }
  ],

@@ -1,0 +1,37 @@
+{
+ "cards": [],
+ "charts": [
+  {
+   "chart": "Total Penjualan",
+   "width": "Half"
+  },
+  {
+   "chart": "Total Pembelian",
+   "width": "Half"
+  },
+  {
+   "chart": "Jumlah Anggota",
+   "width": "Full"
+  },
+  {
+   "chart": "Jumlah Anggota Aktif",
+   "width": "Half"
+  },
+  {
+   "chart": "Jumlah Anggota Tidak Aktif",
+   "width": "Half"
+  }
+ ],
+ "creation": "2026-05-31 21:30:29.108293",
+ "dashboard_name": "OnKoperasi",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 1,
+ "is_standard": 1,
+ "modified": "2026-05-31 21:39:56.026284",
+ "modified_by": "Administrator",
+ "module": "OnKoperasi",
+ "name": "OnKoperasi",
+ "owner": "Administrator"
+}

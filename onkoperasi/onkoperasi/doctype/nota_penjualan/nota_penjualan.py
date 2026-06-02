@@ -16,11 +16,13 @@ class NotaPenjualan(Document):
                 "Anggota", self.anggota, "nama_anggota"
             ) or self.anggota
         if not self.nama_pelanggan:
-            self.nama_pelanggan = "Umum"
+            self.anggota = "AGT00001"
+            self.nama_pelanggan = "Walk In Customer"
 
     def hitung_total(self):
         subtotal = 0
         diskon_total = 0
+        subtotal_harga_beli = 0
         for row in self.items:
             harga_asli = flt(row.qty) * flt(row.harga_jual)
             disc_nilai = harga_asli * (flt(row.diskon) / 100)
@@ -28,7 +30,11 @@ class NotaPenjualan(Document):
             subtotal     += harga_asli
             diskon_total += disc_nilai
 
-        self.subtotal    = subtotal
+            harga_beli_asli = flt(row.qty) * flt(row.harga_beli)
+            subtotal_harga_beli += harga_beli_asli 
+
+        self.subtotal               = subtotal
+        self.subtotal_harga_beli    = subtotal_harga_beli
         self.diskon_total = diskon_total
         self.total        = subtotal - diskon_total
         self.kembalian    = max(0, flt(self.jumlah_diterima) - self.total)
@@ -84,6 +90,7 @@ class NotaPenjualan(Document):
             return
 
         keterangan = f"Penjualan {self.name} — {self.nama_pelanggan}"
+
         buat_jurnal(
             tanggal     = str(self.tanggal)[:10],
             jenis       = "Kas Masuk",
@@ -91,6 +98,18 @@ class NotaPenjualan(Document):
             baris=[
                 {"akun": akun_kas,        "debit": self.total, "kredit": 0},
                 {"akun": akun_pendapatan, "debit": 0, "kredit": self.total},
+            ],
+            ref_doctype = "Nota Penjualan",
+            ref_docname = self.name
+        )
+
+        buat_jurnal(
+            tanggal     = str(self.tanggal)[:10],
+            jenis       = "Kas Keluar",
+            keterangan  = keterangan,
+            baris=[
+                {"akun": "5-6000","debit": self.subtotal_harga_beli, "kredit":0 },
+                {"akun": "1-1500","debit": 0, "kredit": self.subtotal_harga_beli},
             ],
             ref_doctype = "Nota Penjualan",
             ref_docname = self.name

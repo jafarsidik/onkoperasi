@@ -1,5 +1,9 @@
 [
  {
+  "akun_administrasi": null,
+  "akun_bunga": null,
+  "akun_denda": null,
+  "akun_pinjaman": null,
   "denda_perhari": null,
   "docstatus": 0,
   "doctype": "Jenis Pinjaman",
@@ -14,6 +18,10 @@
   "tipe_denda": "Denda Nominal"
  },
  {
+  "akun_administrasi": null,
+  "akun_bunga": null,
+  "akun_denda": null,
+  "akun_pinjaman": null,
   "denda_perhari": null,
   "docstatus": 0,
   "doctype": "Jenis Pinjaman",
@@ -28,6 +36,10 @@
   "tipe_denda": "Denda Nominal"
  },
  {
+  "akun_administrasi": null,
+  "akun_bunga": null,
+  "akun_denda": null,
+  "akun_pinjaman": null,
   "denda_perhari": null,
   "docstatus": 0,
   "doctype": "Jenis Pinjaman",
@@ -42,6 +54,10 @@
   "tipe_denda": "Denda Nominal"
  },
  {
+  "akun_administrasi": null,
+  "akun_bunga": null,
+  "akun_denda": null,
+  "akun_pinjaman": null,
   "denda_perhari": null,
   "docstatus": 0,
   "doctype": "Jenis Pinjaman",
@@ -56,6 +72,10 @@
   "tipe_denda": "Denda Nominal"
  },
  {
+  "akun_administrasi": null,
+  "akun_bunga": null,
+  "akun_denda": null,
+  "akun_pinjaman": null,
   "denda_perhari": null,
   "docstatus": 0,
   "doctype": "Jenis Pinjaman",
@@ -70,6 +90,10 @@
   "tipe_denda": "Denda Nominal"
  },
  {
+  "akun_administrasi": null,
+  "akun_bunga": null,
+  "akun_denda": null,
+  "akun_pinjaman": null,
   "denda_perhari": null,
   "docstatus": 0,
   "doctype": "Jenis Pinjaman",

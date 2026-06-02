@@ -47,7 +47,7 @@ class StockMasuk(Document):
         for row in self.items:
             akun_persediaan = frappe.db.get_value("Barang", row.item, "akun_persediaan")
             if not akun_persediaan:
-                continue
+                akun_persediaan = "1-1500"
             total = flt(row.qty) * flt(row.harga_beli)
             buat_jurnal(
                 tanggal=self.tanggal,

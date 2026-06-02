@@ -1,0 +1,194 @@
+{
+ "actions": [],
+ "autoname": "NOTB-.YYYY.MM.DD.-.####",
+ "creation": "2026-06-01 10:37:51.453040",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "tanggal",
+  "pemasok",
+  "supplier_invoice_no",
+  "supplier_invoice_date",
+  "column_break_1",
+  "is_paid",
+  "section_items",
+  "items",
+  "section_bayar",
+  "subtotal",
+  "diskon_total",
+  "total",
+  "column_break_2",
+  "metode_bayar",
+  "jumlah_diterima",
+  "kembalian",
+  "keterangan",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Now",
+   "fieldname": "tanggal",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Tanggal",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_items",
+   "fieldtype": "Section Break",
+   "label": "Item"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Item",
+   "options": "Nota Pembelian Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_bayar",
+   "fieldtype": "Section Break",
+   "label": "Pembayaran"
+  },
+  {
+   "fieldname": "subtotal",
+   "fieldtype": "Currency",
+   "label": "Subtotal",
+   "read_only": 1
+  },
+  {
+   "fieldname": "diskon_total",
+   "fieldtype": "Currency",
+   "label": "Total Diskon",
+   "read_only": 1
+  },
+  {
+   "bold": 1,
+   "fieldname": "total",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "TOTAL BAYAR",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Tunai",
+   "fieldname": "metode_bayar",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Metode Bayar",
+   "options": "Tunai\nTransfer Bank\nDebit\nQRIS\nMulti",
+   "reqd": 1
+  },
+  {
+   "fieldname": "jumlah_diterima",
+   "fieldtype": "Currency",
+   "label": "Jumlah Diterima"
+  },
+  {
+   "fieldname": "kembalian",
+   "fieldtype": "Currency",
+   "label": "Kembalian",
+   "read_only": 1
+  },
+  {
+   "fieldname": "keterangan",
+   "fieldtype": "Small Text",
+   "label": "Keterangan"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Nota Pembelian",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "pemasok",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Supplier",
+   "options": "Pemasok",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_paid",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Is Paid"
+  },
+  {
+   "fieldname": "supplier_invoice_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Supplier Invoice No"
+  },
+  {
+   "fieldname": "supplier_invoice_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Supplier Invoice Date"
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-06-01 10:46:37.781409",
+ "modified_by": "Administrator",
+ "module": "OnKoperasi",
+ "name": "Nota Pembelian",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Bendahara",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Ketua",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Staf",
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "tanggal",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

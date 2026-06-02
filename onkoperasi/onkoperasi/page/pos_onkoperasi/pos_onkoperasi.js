@@ -11,7 +11,8 @@ frappe.pages['pos-onkoperasi'].on_page_load = function(wrapper) {
     var page = frappe.ui.make_app_page({
         parent: wrapper,
         title: 'POS OnKoperasi',
-        single_column: true
+        single_column: true,
+		hide_sidebar: true,
     });
     new POSKoperasi(page, wrapper);
 };
@@ -174,8 +175,13 @@ class POSKoperasi {
                 <div id="item-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
                     gap:10px; overflow-y:auto; flex:1; padding-right:4px; padding-bottom:8px;"></div>
             </div>
-
+            
             <!-- RIGHT: Cart -->
+             <div style="width:310px; display:flex; flex-direction:column; border-radius:12px; overflow:hidden;
+                box-shadow:0 2px 14px rgba(0,0,0,.08); background:#fff;">
+                  <!-- Cart list -->
+                <div id="cart-list" style="flex:1; overflow-y:auto; padding:8px 12px; min-height:0;"></div>
+            </div>
             <div style="width:380px; display:flex; flex-direction:column; border-radius:12px; overflow:hidden;
                 box-shadow:0 2px 14px rgba(0,0,0,.08); background:#fff;">
 
@@ -195,8 +201,7 @@ class POSKoperasi {
                     </div>
                 </div>
 
-                <!-- Cart list -->
-                <div id="cart-list" style="flex:1; overflow-y:auto; padding:8px 12px; min-height:0;"></div>
+              
 
                 <!-- Totals & Actions -->
                 <div style="padding:12px 14px; border-top:1px solid #f0f2f7; background:#fafbff;">
@@ -302,7 +307,7 @@ class POSKoperasi {
     async load_items() {
         try {
             const result = await frappe.db.get_list('Barang', {
-                filters: { aktif: 1 },
+                filters: { aktif: 1,is_selling:1 },
                 fields: ['name','nama_item','harga_jual','satuan','stok_saat_ini','gambar','kategori'],
                 limit: 300,
                 order_by: 'nama_item asc'
@@ -434,21 +439,21 @@ class POSKoperasi {
             ],
             primary_action_label: 'Cari',
             primary_action: async (v) => {
-                const res = await frappe.db.get_list('Customer', {
+                const res = await frappe.db.get_list('Anggota', {
                     filters: [['name', 'like', `%${v.q}%`]],
-                    fields: ['name','customer_name','loyalty_program','loyalty_points'],
+                    fields: ['name','nama',],
                     limit: 20
                 });
                 if (!res.length) { frappe.show_alert({message:'Tidak ditemukan', indicator:'orange'}); return; }
                 const rows = res.map(c => `
-                    <div onclick="window.posApp._select_customer('${c.name}','${(c.customer_name||c.name).replace(/'/g,"\\'")}',${c.loyalty_points||0}); window._tmp_dlg.hide();"
+                    <div onclick="window.posApp._select_customer('${c.name}','${(c.customer_name||c.name).replace(/'/g,"\\'")}',${0}); window._tmp_dlg.hide();"
                         style="padding:10px 12px; border-radius:8px; cursor:pointer; display:flex; justify-content:space-between; align-items:center;"
                         onmouseover="this.style.background='#f0f4ff'" onmouseout="this.style.background=''">
                         <div>
                             <div style="font-weight:700; font-size:13px;">${c.customer_name||c.name}</div>
                             <div style="font-size:11px; color:#6b7280;">${c.name}</div>
                         </div>
-                        <span class="badge badge-blue">Poin: ${c.loyalty_points||0}</span>
+                        <span class="badge badge-blue">Poin: ${0}</span>
                     </div>`).join('<hr class="divider">');
                 d.fields_dict.q.$wrapper.after(`<div style="margin-top:12px;">${rows}</div>`);
                 window._tmp_dlg = d;
@@ -461,9 +466,9 @@ class POSKoperasi {
     _select_customer(name, display_name, loyalty_points) {
         this.customer = { name, display_name, loyalty_points };
         document.getElementById('customer-name').textContent = display_name;
-        document.getElementById('loyalty-pts').textContent = loyalty_points;
+        //document.getElementById('loyalty-pts').textContent = loyalty_points;
         document.getElementById('loyalty-redeem-row').style.display = 'block';
-        document.getElementById('max-loyalty').textContent = fmt_rp(loyalty_points);
+       // document.getElementById('max-loyalty').textContent = fmt_rp(loyalty_points);
         this.update_totals();
     }
 
@@ -810,8 +815,8 @@ class POSKoperasi {
             doctype        : 'Nota Penjualan',
             tanggal        : now_dt(),                                                // Datetime [REQD]
             pos_session    : this.session,                                            // Link
-            anggota        : this.customer ? this.customer.name : null,               // Link
-            nama_pelanggan : this.customer ? this.customer.display_name : 'Umum',    // Data
+            anggota        : this.customer ? this.customer.name : 'AGT00001',               // Link
+            nama_pelanggan : this.customer ? this.customer.display_name : 'Walk In Customer',    // Data
             kasir          : frappe.session.user,                                     // Link
             metode_bayar   : metode,                                                  // Select [REQD]
             jumlah_diterima: bayar,                                                   // Currency

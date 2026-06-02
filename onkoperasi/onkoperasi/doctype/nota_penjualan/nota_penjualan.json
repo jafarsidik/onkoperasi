@@ -15,6 +15,7 @@
   "items",
   "section_bayar",
   "subtotal",
+  "subtotal_harga_beli",
   "diskon_total",
   "total",
   "column_break_2",
@@ -138,11 +139,17 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "subtotal_harga_beli",
+   "fieldtype": "Currency",
+   "label": "Subtotal Harga Beli",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-26 13:07:14.871568",
+ "modified": "2026-06-01 14:18:03.748984",
  "modified_by": "Administrator",
  "module": "OnKoperasi",
  "name": "Nota Penjualan",

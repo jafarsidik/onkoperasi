@@ -50,7 +50,7 @@
    "fieldname": "supplier",
    "fieldtype": "Link",
    "label": "Supplier",
-   "options": "Supplier"
+   "options": "Pemasok"
   },
   {
    "fieldname": "no_referensi",
@@ -97,7 +97,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-26 12:04:49.780230",
+ "modified": "2026-06-01 19:45:36.702313",
  "modified_by": "Administrator",
  "module": "OnKoperasi",
  "name": "Stock Masuk",
