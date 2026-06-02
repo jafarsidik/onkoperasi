@@ -1,0 +1,226 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "ITM-.YYYY.-.####",
+ "creation": "2026-05-26 11:20:44.537958",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_ub9s",
+  "kode_barcode",
+  "nama_item",
+  "kategori",
+  "column_break_ksfr",
+  "satuan",
+  "aktif",
+  "is_selling",
+  "is_assets",
+  "amended_from",
+  "gambar",
+  "harga_section",
+  "harga_beli",
+  "harga_jual",
+  "column_break_qhec",
+  "margin_persen",
+  "margin_nominal",
+  "stock_section",
+  "stok_minimum",
+  "stok_saat_ini",
+  "gudang_default",
+  "column_break_ztxg",
+  "akun_persediaan",
+  "keterangan"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_ub9s",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Barang",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "kode_barcode",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Barcode / SKU",
+   "reqd": 1
+  },
+  {
+   "fieldname": "nama_item",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Nama Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ksfr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "kategori",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Kategori",
+   "options": "Kategori Barang",
+   "reqd": 1
+  },
+  {
+   "fieldname": "satuan",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Satuan",
+   "reqd": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "aktif",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Aktif"
+  },
+  {
+   "fieldname": "gambar",
+   "fieldtype": "Attach Image",
+   "label": "Gambar"
+  },
+  {
+   "fieldname": "harga_section",
+   "fieldtype": "Section Break",
+   "label": "Harga"
+  },
+  {
+   "fieldname": "harga_beli",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Harga Beli",
+   "reqd": 1
+  },
+  {
+   "fieldname": "harga_jual",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Harga Jual",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_qhec",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "margin_persen",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "Margin (%)",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "margin_nominal",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Margin (Rp)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "stock_section",
+   "fieldtype": "Section Break",
+   "label": "Stock"
+  },
+  {
+   "default": "0",
+   "fieldname": "stok_minimum",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Stok Minimum"
+  },
+  {
+   "fieldname": "stok_saat_ini",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Stok Saat Ini",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_ztxg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "akun_persediaan",
+   "fieldtype": "Link",
+   "label": "Akun Persediaan",
+   "options": "Akun"
+  },
+  {
+   "fieldname": "gudang_default",
+   "fieldtype": "Link",
+   "label": "Gudang Default",
+   "options": "Gudang"
+  },
+  {
+   "fieldname": "keterangan",
+   "fieldtype": "Small Text",
+   "label": "Keterangan"
+  },
+  {
+   "default": "1",
+   "fieldname": "is_selling",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Is Selling"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_assets",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Is Assets"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-06-01 13:51:25.529238",
+ "modified_by": "Administrator",
+ "module": "KSU",
+ "name": "Barang",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "search_fields": "nama_item,kategori",
+ "show_title_field_in_link": 1,
+ "sort_field": "nama_item",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "nama_item",
+ "track_changes": 1
+}

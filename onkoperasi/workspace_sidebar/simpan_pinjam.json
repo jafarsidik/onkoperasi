@@ -1,0 +1,129 @@
+{
+ "app": "onkoperasi",
+ "creation": "2026-05-25 21:27:52.899967",
+ "docstatus": 0,
+ "doctype": "Workspace Sidebar",
+ "idx": 1,
+ "items": [
+  {
+   "child": 0,
+   "collapsible": 1,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Home",
+   "link_to": "OnKoperasi KSP",
+   "link_type": "Workspace",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "book-lock",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Tabungan",
+   "link_to": "Tabungan",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "loan",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Pengajuan Pinjaman",
+   "link_to": "Pinjaman",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "change",
+   "indent": 1,
+   "keep_closed": 0,
+   "label": "Transaksi",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Section Break"
+  },
+  {
+   "child": 1,
+   "collapsible": 1,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Transaksi Simpanan",
+   "link_to": "Transaksi Simpanan",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 1,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Pembayaran Pinjaman",
+   "link_to": "Pembayaran Pinjaman",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 1,
+   "icon": "",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Sewa",
+   "link_to": "Sewa",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "database",
+   "indent": 1,
+   "keep_closed": 0,
+   "label": "Master Data",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Section Break"
+  },
+  {
+   "child": 1,
+   "collapsible": 1,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Jenis Simpanan",
+   "link_to": "Jenis Simpanan",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 1,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Jenis Pinjaman",
+   "link_to": "Jenis Pinjaman",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-06-03 02:39:38.713463",
+ "modified_by": "Administrator",
+ "module": "OnKoperasi",
+ "name": "Simpan Pinjam",
+ "owner": "Administrator",
+ "standard": 1,
+ "title": "Simpan Pinjam"
+}

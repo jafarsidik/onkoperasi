@@ -1,0 +1,139 @@
+{
+ "actions": [],
+ "autoname": "STK-IN-.YYYY.MM.-.####",
+ "creation": "2024-01-01 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "tanggal",
+  "gudang_tujuan",
+  "column_break_1",
+  "jenis_masuk",
+  "supplier",
+  "no_referensi",
+  "keterangan",
+  "section_items",
+  "items",
+  "section_total",
+  "total_nilai",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "tanggal",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Tanggal",
+   "reqd": 1
+  },
+  {
+   "fieldname": "gudang_tujuan",
+   "fieldtype": "Link",
+   "label": "Gudang",
+   "options": "Gudang",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "jenis_masuk",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Jenis",
+   "options": "Pembelian\nRetur Penjualan\nPenyesuaian\nOpname",
+   "reqd": 1
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Pemasok"
+  },
+  {
+   "fieldname": "no_referensi",
+   "fieldtype": "Data",
+   "label": "No. Referensi (Faktur Supplier)"
+  },
+  {
+   "fieldname": "keterangan",
+   "fieldtype": "Small Text",
+   "label": "Keterangan"
+  },
+  {
+   "fieldname": "section_items",
+   "fieldtype": "Section Break",
+   "label": "Detail Barang"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Item",
+   "options": "Stock Masuk Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_total",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_nilai",
+   "fieldtype": "Currency",
+   "label": "Total Nilai",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Stock Masuk",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-06-01 19:45:36.702313",
+ "modified_by": "Administrator",
+ "module": "KSU",
+ "name": "Stock Masuk",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Bendahara",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Ketua",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "Staf",
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "tanggal",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

@@ -1,0 +1,118 @@
+{
+ "app": "onkoperasi",
+ "charts": [],
+ "content": "[{\"id\":\"33_USuvH8k\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">OnKoperasi - Mudah, Cepat, Praktis, Transparan.</span>\",\"col\":12}},{\"id\":\"wYQfPmvgZH\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"E1yPT6JrMP\",\"type\":\"card\",\"data\":{\"card_name\":\"KSU\",\"col\":3}}]",
+ "creation": "2022-08-08 10:07:18.452494",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "organization",
+ "idx": 6,
+ "is_hidden": 0,
+ "label": "OnKoperasi KSU",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Master",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Jenis Simpanan",
+   "link_count": 0,
+   "link_to": "Jenis Simpanan",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Jenis Pinjaman",
+   "link_count": 0,
+   "link_to": "Jenis Pinjaman",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Anggota",
+   "link_count": 0,
+   "link_to": "Anggota",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "KSU",
+   "link_count": 4,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "POS",
+   "link_count": 0,
+   "link_to": "pos-onkoperasi",
+   "link_type": "Page",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "POS Session",
+   "link_count": 0,
+   "link_to": "POS Session",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Nota Penjualan",
+   "link_count": 0,
+   "link_to": "Nota Penjualan",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Barang",
+   "link_count": 0,
+   "link_to": "Barang",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-06-03 01:47:43.936515",
+ "modified_by": "Administrator",
+ "module": "KSU",
+ "name": "OnKoperasi KSU",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 1.0,
+ "shortcuts": [],
+ "title": "OnKoperasi KSU",
+ "type": "Workspace"
+}
