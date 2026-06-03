@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "field:nama_kategori",
  "creation": "2026-05-26 11:17:18.829278",
@@ -75,7 +76,7 @@
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2026-05-26 11:19:41.406933",
+ "modified": "2026-06-03 10:14:30.437114",
  "modified_by": "Administrator",
  "module": "KSU",
  "name": "Kategori Barang",
