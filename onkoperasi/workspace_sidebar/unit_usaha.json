@@ -41,13 +41,13 @@
    "type": "Section Break"
   },
   {
-   "child": 0,
+   "child": 1,
    "collapsible": 1,
    "indent": 0,
    "keep_closed": 0,
-   "label": "POS Session",
-   "link_to": "POS Session",
-   "link_type": "DocType",
+   "label": "POS",
+   "link_to": "pos-onkoperasi",
+   "link_type": "Page",
    "show_arrow": 0,
    "type": "Link"
   },
@@ -56,9 +56,9 @@
    "collapsible": 1,
    "indent": 0,
    "keep_closed": 0,
-   "label": "POS",
-   "link_to": "pos-onkoperasi",
-   "link_type": "Page",
+   "label": "POS Session",
+   "link_to": "POS Session",
+   "link_type": "DocType",
    "show_arrow": 0,
    "type": "Link"
   },
@@ -184,7 +184,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-06-03 09:57:53.695076",
+ "modified": "2026-06-03 10:05:31.645427",
  "modified_by": "Administrator",
  "module": "OnKoperasi",
  "name": "Unit Usaha",
