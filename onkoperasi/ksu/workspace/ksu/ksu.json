@@ -11,7 +11,7 @@
  "icon": "organization",
  "idx": 6,
  "is_hidden": 0,
- "label": "OnKoperasi KSU",
+ "label": "KSU",
  "links": [
   {
    "hidden": 0,
@@ -101,10 +101,10 @@
    "type": "Link"
   }
  ],
- "modified": "2026-06-03 01:47:43.936515",
+ "modified": "2026-06-03 09:41:03.966966",
  "modified_by": "Administrator",
  "module": "KSU",
- "name": "OnKoperasi KSU",
+ "name": "KSU",
  "number_cards": [],
  "owner": "Administrator",
  "parent_page": "",
@@ -113,6 +113,6 @@
  "roles": [],
  "sequence_id": 1.0,
  "shortcuts": [],
- "title": "OnKoperasi KSU",
+ "title": "KSU",
  "type": "Workspace"
 }
