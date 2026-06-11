@@ -3,6 +3,7 @@
   "docstatus": 0,
   "doctype": "Workflow",
   "document_type": "Pinjaman",
+  "enable_action_confirmation": 0,
   "is_active": 1,
   "modified": "2022-08-09 10:43:21.978696",
   "name": "Pinjaman",
@@ -11,68 +12,73 @@
   "states": [
    {
     "allow_edit": "All",
+    "avoid_status_override": 0,
     "doc_status": "0",
+    "evaluate_as_expression": 0,
     "is_optional_state": 0,
     "message": null,
     "next_action_email_template": null,
-    "parent": "Pinjaman",
-    "parentfield": "states",
-    "parenttype": "Workflow",
+    "send_email": 0,
     "state": "Draft",
     "update_field": "status",
-    "update_value": "Draft"
+    "update_value": "Draft",
+    "workflow_builder_id": null
    },
    {
     "allow_edit": "All",
+    "avoid_status_override": 0,
     "doc_status": "0",
+    "evaluate_as_expression": 0,
     "is_optional_state": 0,
     "message": null,
     "next_action_email_template": null,
-    "parent": "Pinjaman",
-    "parentfield": "states",
-    "parenttype": "Workflow",
+    "send_email": 0,
     "state": "Requested",
     "update_field": "status",
-    "update_value": "Requested"
+    "update_value": "Requested",
+    "workflow_builder_id": null
    },
    {
     "allow_edit": "All",
+    "avoid_status_override": 0,
     "doc_status": "0",
+    "evaluate_as_expression": 0,
     "is_optional_state": 0,
     "message": null,
     "next_action_email_template": null,
-    "parent": "Pinjaman",
-    "parentfield": "states",
-    "parenttype": "Workflow",
+    "send_email": 0,
     "state": "Approved",
     "update_field": "status",
-    "update_value": "Approved"
+    "update_value": "Approved",
+    "workflow_builder_id": null
    },
    {
     "allow_edit": "All",
+    "avoid_status_override": 0,
     "doc_status": "0",
+    "evaluate_as_expression": 0,
     "is_optional_state": 0,
     "message": null,
     "next_action_email_template": null,
-    "parent": "Pinjaman",
-    "parentfield": "states",
-    "parenttype": "Workflow",
+    "send_email": 0,
     "state": "Rejected",
     "update_field": "status",
-    "update_value": "Rejected"
+    "update_value": "Rejected",
+    "workflow_builder_id": null
    },
    {
     "allow_edit": "All",
+    "avoid_status_override": 0,
     "doc_status": "1",
+    "evaluate_as_expression": 0,
     "is_optional_state": 0,
     "message": null,
     "next_action_email_template": null,
-    "parent": "Pinjaman",
-    "parentfield": "states",
-    "parenttype": "Workflow",
+    "send_email": 0,
     "state": "Realization",
     "update_field": "status_realisasi",
-    "update_value": "Already Realized"
+    "update_value": "Already Realized",
+    "workflow_builder_id": null
    }
   ],
   "transitions": [
@@ -82,10 +88,10 @@
     "allowed": "All",
     "condition": null,
     "next_state": "Requested",
-    "parent": "Pinjaman",
-    "parentfield": "transitions",
-    "parenttype": "Workflow",
-    "state": "Draft"
+    "send_email_to_creator": 0,
+    "state": "Draft",
+    "transition_tasks": null,
+    "workflow_builder_id": null
    },
    {
     "action": "Approve",
@@ -93,10 +99,10 @@
     "allowed": "All",
     "condition": null,
     "next_state": "Approved",
-    "parent": "Pinjaman",
-    "parentfield": "transitions",
-    "parenttype": "Workflow",
-    "state": "Requested"
+    "send_email_to_creator": 0,
+    "state": "Requested",
+    "transition_tasks": null,
+    "workflow_builder_id": null
    },
    {
     "action": "Reject",
@@ -104,10 +110,10 @@
     "allowed": "All",
     "condition": null,
     "next_state": "Rejected",
-    "parent": "Pinjaman",
-    "parentfield": "transitions",
-    "parenttype": "Workflow",
-    "state": "Requested"
+    "send_email_to_creator": 0,
+    "state": "Requested",
+    "transition_tasks": null,
+    "workflow_builder_id": null
    },
    {
     "action": "Realization",
@@ -115,10 +121,10 @@
     "allowed": "All",
     "condition": null,
     "next_state": "Realization",
-    "parent": "Pinjaman",
-    "parentfield": "transitions",
-    "parenttype": "Workflow",
-    "state": "Approved"
+    "send_email_to_creator": 0,
+    "state": "Approved",
+    "transition_tasks": null,
+    "workflow_builder_id": null
    },
    {
     "action": "Request",
@@ -126,12 +132,13 @@
     "allowed": "All",
     "condition": null,
     "next_state": "Requested",
-    "parent": "Pinjaman",
-    "parentfield": "transitions",
-    "parenttype": "Workflow",
-    "state": "Rejected"
+    "send_email_to_creator": 0,
+    "state": "Rejected",
+    "transition_tasks": null,
+    "workflow_builder_id": null
    }
   ],
+  "workflow_data": null,
   "workflow_name": "Pinjaman",
   "workflow_state_field": "workflow_state"
  }

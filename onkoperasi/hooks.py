@@ -9,25 +9,7 @@ app_license = "MIT"
 
 # Includes in <head>
 # ------------------
-fixtures = [
-    {"doctype": "Role",
-		"filters": {
-			"name": [ "in", ["Ketua","Bendahara","Staf","Anggota"] ]
-		}
-	},
-    {"doctype":"Custom DocPerm"},
-    {"doctype":"Workflow State"},
-    {"doctype": "Workflow",
-		"filters": {
-			"name": [ "in", ["Pinjaman"] ]
-		}
-	},
-    {"doctype":"Jenis Simpanan"},
-    {"doctype":"Jenis Pinjaman"},
-    {"doctype": "Akun"},
 
-
-]
 # include js, css files in header of desk.html
 # app_include_css = "/assets/onkoperasi/css/onkoperasi.css"
 # app_include_js = "/assets/onkoperasi/js/onkoperasi.js"
@@ -212,11 +194,47 @@ scheduler_events = {
 # Recommended only for DocTypes which have limited documents with untranslated names
 # For example: Role, Gender, etc.
 # translated_search_doctypes = []
-fixtures=[
-    "Akun",
-    "Anggota",
-    "Jenis Simpanan",
-    "Jenis Pinjaman",
-	"Kategori Barang",
-    "Koperasi Settings",
+after_migrate = [
+    "onkoperasi.setup.setup_report_roles",
+    "onkoperasi.setup.setup_dashboard_roles",
+    "onkoperasi.setup.setup_dashboard_chart_roles", 
+]
+fixtures = [
+    {"doctype": "Role",
+		"filters": {
+			"name": [ "in", ["Ketua","Bendahara","Staf","Anggota"] ]
+		}
+	},
+    {"doctype":"Custom DocPerm",
+        "filters": {
+            "role": [ "in", ["Ketua","Bendahara","Staf","Anggota"] ]
+        }
+    },
+    # Tangkap perubahan role di report ERPNext bawaan
+    # {
+    #     "doctype": "Has Role",
+    #     "filters": [
+    #         ["parenttype", "=", "Report"],
+    #         ["parent", "in", [
+    #             "General Ledger",
+    #             "Supplier Ledger Summary",
+    #             "Customer Ledger Summary",
+    #             "Balance Sheet", 
+    #             "Profit and Loss Statement",
+    #             "Trial Balance",
+    #             # tambahkan report ERPNext lain yang Anda pakai
+    #         ]]
+    #     ]
+    # },
+    {"doctype":"Workflow State"},
+    {"doctype": "Workflow",
+		"filters": {
+			"name": [ "in", ["Pinjaman"] ]
+		}
+	},
+    {"doctype":"Jenis Simpanan"},
+    {"doctype":"Jenis Pinjaman"},
+    {"doctype":"Koperasi Settings"},
+
+
 ]

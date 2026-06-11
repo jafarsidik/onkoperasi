@@ -9,12 +9,22 @@
  "idx": 1,
  "label": "OnKoperasi",
  "link_type": "Workspace Sidebar",
- "modified": "2026-06-11 12:16:28.400865",
+ "modified": "2026-06-11 15:52:13.513253",
  "modified_by": "Administrator",
  "name": "OnKoperasi",
  "owner": "Administrator",
  "restrict_removal": 0,
- "roles": [],
+ "roles": [
+  {
+   "role": "Ketua"
+  },
+  {
+   "role": "Staf"
+  },
+  {
+   "role": "Anggota"
+  }
+ ],
  "sidebar": "OnKoperasi",
  "standard": 1
 }
