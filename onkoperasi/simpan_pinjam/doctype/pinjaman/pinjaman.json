@@ -7,6 +7,7 @@
  "engine": "InnoDB",
  "field_order": [
   "data_pinjaman_tab",
+  "tanggal_pengajuan_aplikasi",
   "jenis_pinjaman",
   "anggota",
   "nama_lengkap",
@@ -15,23 +16,22 @@
   "status",
   "status_lunas",
   "status_realisasi",
-  "fasilitas_pembiayaan_section",
-  "tanggal_pengajuan_aplikasi",
-  "plafon",
-  "tenor",
-  "jumlah_angsuran",
-  "column_break_12",
-  "sistem_bunga",
-  "jasa_bunga",
-  "satuan_jangka_waktu",
   "amended_from",
-  "persen_denda",
   "pinjaman_section",
   "tanggal_di_setujui",
   "catatan",
   "section_break_44",
   "disetujui_oleh",
   "realisasi_section",
+  "plafon",
+  "tenor",
+  "jasa_bunga",
+  "persen_denda",
+  "column_break_xcug",
+  "sistem_bunga",
+  "satuan_jangka_waktu",
+  "jumlah_angsuran",
+  "section_break_bnmp",
   "potongan_column",
   "tanggal_realisasi",
   "administrasi_",
@@ -40,8 +40,12 @@
   "biaya_lain_lain",
   "penerimaan_column",
   "grand_total",
-  "section_break_rcco",
-  "potongan_pinjaman",
+  "biaya_administrasi",
+  "biaya_provisi",
+  "biaya_asuransi",
+  "column_break_amye",
+  "biaya_bunga",
+  "biaya_denda",
   "list_angsuran_pinjaman_section",
   "list_angsuran_pinjaman",
   "data_keluarga_tab",
@@ -64,8 +68,9 @@
    "fieldname": "anggota",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Anggota",
-   "options": "Anggota",
+   "options": "Customer",
    "reqd": 1
   },
   {
@@ -75,31 +80,38 @@
   {
    "default": "Draft",
    "fieldname": "status",
-   "fieldtype": "Read Only",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Status Dokumen",
+   "options": "Draft\nRequested\nApproved\nRejected",
    "read_only": 1
   },
   {
-   "fieldname": "fasilitas_pembiayaan_section",
-   "fieldtype": "Section Break"
-  },
-  {
+   "default": "Today",
    "fieldname": "tanggal_pengajuan_aplikasi",
    "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Tanggal Pengajuan",
    "reqd": 1
   },
   {
    "fieldname": "jenis_pinjaman",
    "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Jenis Pinjaman",
    "options": "Jenis Pinjaman",
    "reqd": 1
   },
   {
    "default": "0",
+   "description": "Satuan Mengikuti Field Satuan Jangka Waktu",
    "fieldname": "tenor",
    "fieldtype": "Int",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Jangka Waktu (Tenor)",
    "reqd": 1
   },
@@ -107,27 +119,33 @@
    "default": "0",
    "fieldname": "plafon",
    "fieldtype": "Currency",
+   "in_list_view": 1,
    "label": "Jumlah Pengajuan (Plafon)",
    "reqd": 1
   },
   {
-   "fieldname": "column_break_12",
-   "fieldtype": "Column Break"
-  },
-  {
+   "default": "0",
    "fieldname": "administrasi_",
    "fieldtype": "Percent",
-   "label": "Administrasi (%)"
+   "label": "Administrasi (%)",
+   "precision": "2",
+   "reqd": 1
   },
   {
+   "default": "0",
    "fieldname": "provisi_",
    "fieldtype": "Percent",
-   "label": "Provisi (%)"
+   "label": "Provisi (%)",
+   "precision": "2",
+   "reqd": 1
   },
   {
+   "default": "0",
    "fieldname": "asuransi_",
    "fieldtype": "Percent",
-   "label": "Asuransi (%)"
+   "label": "Asuransi (%)",
+   "precision": "2",
+   "reqd": 1
   },
   {
    "fieldname": "amended_from",
@@ -139,9 +157,11 @@
    "read_only": 1
   },
   {
+   "bold": 1,
    "default": "0",
    "fieldname": "grand_total",
    "fieldtype": "Currency",
+   "in_list_view": 1,
    "label": "Total Uang Diterima",
    "read_only": 1
   },
@@ -151,9 +171,11 @@
    "label": "Jasa ( Bunga ) % PA"
   },
   {
-   "fetch_from": "anggota.nama",
+   "fetch_from": "anggota.customer_name",
    "fieldname": "nama_lengkap",
    "fieldtype": "Read Only",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Nama Lengkap"
   },
   {
@@ -167,6 +189,7 @@
    "label": "Tanggal Di Setujui"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "catatan",
    "fieldtype": "Small Text",
    "label": "Catatan"
@@ -259,7 +282,7 @@
    "label": "Data Keluarga & Penjamin"
   },
   {
-   "fetch_from": "anggota.alamat",
+   "fetch_from": "anggota.customer_primary_address",
    "fieldname": "alamat_anggota",
    "fieldtype": "Read Only",
    "label": "Alamat"
@@ -267,21 +290,29 @@
   {
    "default": "-",
    "fieldname": "status_realisasi",
-   "fieldtype": "Data",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Status Realisasi",
+   "options": "-\nAlready Realized\nRealization",
    "read_only": 1
   },
   {
    "default": "-",
    "fieldname": "status_lunas",
-   "fieldtype": "Data",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Status Lunas",
+   "options": "\n-\nLunas",
    "read_only": 1
   },
   {
    "fetch_from": "jenis_pinjaman.sistem_bunga",
    "fieldname": "sistem_bunga",
    "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Sistem Bunga",
    "read_only": 1
   },
@@ -289,12 +320,16 @@
    "fetch_from": "jenis_pinjaman.tenor",
    "fieldname": "satuan_jangka_waktu",
    "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Satuan Jangka Waktu",
    "read_only": 1
   },
   {
+   "bold": 1,
    "fieldname": "jumlah_angsuran",
    "fieldtype": "Currency",
+   "in_list_view": 1,
    "label": "Jumlah Angsuran",
    "non_negative": 1,
    "read_only": 1
@@ -306,9 +341,10 @@
   {
    "fieldname": "realisasi_section",
    "fieldtype": "Tab Break",
-   "label": "Realisasi Pinjaman"
+   "label": "Biaya - Biaya Pinjaman"
   },
   {
+   "default": "0",
    "fieldname": "biaya_lain_lain",
    "fieldtype": "Currency",
    "label": "Biaya Lain - Lain ( Rp )"
@@ -334,25 +370,61 @@
    "label": "Penerimaan"
   },
   {
-   "fieldname": "section_break_rcco",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "potongan_pinjaman",
-   "fieldtype": "Table",
-   "label": "Potongan Pinjaman",
-   "options": "Potongan Pinjaman"
-  },
-  {
    "fieldname": "persen_denda",
    "fieldtype": "Percent",
    "label": "Denda (%)"
+  },
+  {
+   "fieldname": "biaya_administrasi",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Biaya Administrasi",
+   "read_only": 1
+  },
+  {
+   "fieldname": "biaya_provisi",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Biaya Provisi",
+   "read_only": 1
+  },
+  {
+   "fieldname": "biaya_asuransi",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Biaya Asuransi",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_bnmp",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_amye",
+   "fieldtype": "Column Break",
+   "label": "Biaya Bunga dan Denda"
+  },
+  {
+   "fieldname": "biaya_bunga",
+   "fieldtype": "Currency",
+   "label": "Biaya Bunga",
+   "read_only": 1
+  },
+  {
+   "fieldname": "biaya_denda",
+   "fieldtype": "Currency",
+   "label": "Biaya Denda",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_xcug",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-26 10:37:55.272898",
+ "modified": "2026-06-12 01:22:47.517550",
  "modified_by": "Administrator",
  "module": "Simpan Pinjam",
  "name": "Pinjaman",

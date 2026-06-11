@@ -9,6 +9,7 @@
  "engine": "InnoDB",
  "field_order": [
   "nama_penabung",
+  "nama_lengkap",
   "jenis_simpanan",
   "kode_simpanan",
   "tanggal_registrasi",
@@ -17,6 +18,7 @@
   "status_simpanan",
   "transaksi_ke_akun",
   "amended_from",
+  "catatan",
   "detail_rekening_section",
   "nomor_rekening",
   "tanggal_buka",
@@ -162,6 +164,20 @@
    "fieldname": "alasan_tutup",
    "fieldtype": "Small Text",
    "label": "Alasan Tutup Rekening"
+  },
+  {
+   "fetch_from": "nama_penabung.customer_name",
+   "fieldname": "nama_lengkap",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Nama Lengkap",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "catatan",
+   "fieldtype": "Small Text",
+   "label": "Catatan"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -172,7 +188,7 @@
    "link_fieldname": "rekening_tabungan"
   }
  ],
- "modified": "2026-06-11 14:17:54.888607",
+ "modified": "2026-06-11 22:04:18.768567",
  "modified_by": "Administrator",
  "module": "Simpan Pinjam",
  "name": "Tabungan",
@@ -194,6 +210,7 @@
  ],
  "quick_entry": 1,
  "row_format": "Dynamic",
+ "search_fields": "nama_lengkap",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

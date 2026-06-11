@@ -3,6 +3,9 @@ import frappe
 
 # Daftar report ERPNext yang ingin diberi role custom
 REPORT_ROLES = {
+    "Laporan Saldo Simpanan": ["Ketua", "Bendahara"],
+    "Laporan SHU Koperasi": ["Ketua", "Bendahara"],
+    "SHU Anggota": ["Ketua", "Bendahara"],
     "General Ledger": ["Ketua", "Bendahara"],
     "Customer Ledger Summary": ["Ketua", "Bendahara"],
     "Supplier Ledger Summary": ["Ketua", "Bendahara"],

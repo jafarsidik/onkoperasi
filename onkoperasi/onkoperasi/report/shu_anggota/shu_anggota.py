@@ -63,26 +63,26 @@ def get_data(filters) -> list[list]:
 
 	persen_karyawan = get_setting.persen_karyawan
 
-	shu_total = get_shu_tahun(2026)
+	shu_total = get_shu_tahun(tahun)
 
-	shu_anggota_total = (shu_total * persen_karyawan / 100 )
+	shu_anggota_total = shu_total * persen_karyawan / 100
 	
 	total_transaksi = frappe.db.sql(f"""
 		SELECT
-			COALESCE(SUM(je.total), 0)
-		FROM `tabNota Penjualan` je
-		WHERE docstatus=1 AND YEAR(je.tanggal) = %s
+			COALESCE(SUM(je.grand_total), 0)
+		FROM `tabSales Invoice` je
+		WHERE docstatus=1 AND status='Paid' AND YEAR(je.posting_date) = %s
 		""",tahun)[0][0]
 	
 	transaksi_anggota = frappe.db.sql(f"""
 		SELECT
-			je.anggota,
-			COALESCE(SUM(je.total), 0) as total_transaksi
-		FROM `tabNota Penjualan` je
+			je.customer,
+			COALESCE(SUM(je.grand_total), 0) as total_transaksi
+		FROM `tabSales Invoice` je
 		WHERE
-			docstatus=1 AND YEAR(je.tanggal) = %s
+			docstatus=1 AND status='Paid' AND YEAR(je.posting_date) = %s
 		GROUP BY
-			je.anggota
+			je.customer
 		""",tahun,as_dict=True)
 	data = []
 	for d in transaksi_anggota:
@@ -91,7 +91,7 @@ def get_data(filters) -> list[list]:
 		if total_transaksi:
 			persentase =  (d.total_transaksi / total_transaksi)* 100
 			shu =  (d.total_transaksi / total_transaksi)* shu_anggota_total
-		nama = frappe.db.get_value("Anggota",d.anggota,"nama")
+		nama = frappe.db.get_value("Customer",d.customer,"customer_name")
 		nama_anggota=None
 		if nama:
 			nama_anggota = nama
@@ -122,33 +122,41 @@ def get_data(filters) -> list[list]:
 	
 	
 	return data, summary
-
 def get_shu_tahun(tahun):
-	pendapatan =  frappe.db.sql(f"""
-			SELECT
-				COALESCE(SUM(ji.kredit - ji.debit), 0) as total
-			FROM `tabJurnal Entry Item` ji
-			JOIN `tabJurnal Entry` je
-				ON je.name = ji.parent
-			JOIN `tabAkun` a
-				ON a.name = ji.akun
-			WHERE
-				a.tipe_akun = "Pendapatan"
-				AND a.is_group = 0
-				AND YEAR(je.tanggal) =%s
-	""",(tahun,))[0][0] or 0
-	beban =  frappe.db.sql(f"""
-			SELECT
-				COALESCE(SUM(ji.kredit - ji.debit), 0) as total
-			FROM `tabJurnal Entry Item` ji
-			JOIN `tabJurnal Entry` je
-				ON je.name = ji.parent
-			JOIN `tabAkun` a
-				ON a.name = ji.akun
-			WHERE
-				a.tipe_akun = "Beban"
-				AND a.is_group = 0
-				AND YEAR(je.tanggal) =%s
-	""",(tahun,))[0][0] or 0
-	shu = (abs(pendapatan) - abs(beban))
-	return shu
+    result = frappe.db.sql("""
+        SELECT
+            COALESCE(
+                SUM(
+                    CASE
+                        WHEN acc.root_type = 'Income'
+                        THEN gle.credit - gle.debit
+                        ELSE 0
+                    END
+                ),
+                0
+            ) AS pendapatan,
+
+            COALESCE(
+                SUM(
+                    CASE
+                        WHEN acc.root_type = 'Expense'
+                        THEN gle.debit - gle.credit
+                        ELSE 0
+                    END
+                ),
+                0
+            ) AS beban
+
+        FROM `tabGL Entry` gle
+        INNER JOIN `tabAccount` acc
+            ON acc.name = gle.account
+
+        WHERE
+            YEAR(gle.posting_date) = %s
+            AND gle.is_cancelled = 0
+    """, (tahun,), as_dict=True)[0]
+
+    pendapatan = result.pendapatan or 0
+    beban = result.beban or 0
+
+    return pendapatan - beban

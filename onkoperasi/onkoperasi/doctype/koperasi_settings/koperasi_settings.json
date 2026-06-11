@@ -13,26 +13,31 @@
   "email",
   "logo",
   "section_akun",
+  "akun_simpanan_column",
   "akun_kas",
   "akun_bank",
   "akun_simpanan_pokok",
   "akun_simpanan_wajib",
   "akun_simpanan_sukarela",
-  "column_break_2",
-  "akun_piutang_pinjaman",
+  "akun_pendapatan_pinjaman_column",
   "akun_pendapatan_bunga",
   "akun_pendapatan_admin",
+  "akun_pendapatan_provisi",
+  "akun_pendapatan_asuransi",
   "akun_pendapatan_denda",
+  "column_break_2",
+  "akun_piutang_pinjaman",
   "akun_pendapatan_penjualan",
-  "column_break_vbhc",
   "akun_hpp_penjualan",
   "section_shu",
-  "persen_cadangan",
   "persen_jasa_modal",
   "persen_jasa_transaksi",
-  "persen_dana_sosial",
+  "column_break_pkoc",
+  "persen_karyawan",
   "persen_pengurus",
-  "persen_karyawan"
+  "column_break_ajif",
+  "persen_cadangan",
+  "persen_dana_sosial"
  ],
  "fields": [
   {
@@ -108,7 +113,8 @@
   },
   {
    "fieldname": "column_break_2",
-   "fieldtype": "Column Break"
+   "fieldtype": "Column Break",
+   "label": "Akun Penjualan"
   },
   {
    "fieldname": "akun_piutang_pinjaman",
@@ -182,19 +188,45 @@
    "label": "% Untuk Karyawan"
   },
   {
-   "fieldname": "column_break_vbhc",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "akun_hpp_penjualan",
    "fieldtype": "Link",
    "label": "Akun HPP Penjualan",
    "options": "Account"
+  },
+  {
+   "fieldname": "akun_simpanan_column",
+   "fieldtype": "Column Break",
+   "label": "Akun Simpanan"
+  },
+  {
+   "fieldname": "akun_pendapatan_pinjaman_column",
+   "fieldtype": "Column Break",
+   "label": "Akun Pendapatan Pinjaman"
+  },
+  {
+   "fieldname": "akun_pendapatan_provisi",
+   "fieldtype": "Link",
+   "label": "Akun Pendapatan Provisi",
+   "options": "Account"
+  },
+  {
+   "fieldname": "akun_pendapatan_asuransi",
+   "fieldtype": "Link",
+   "label": "Akun Pendapatan Asuransi",
+   "options": "Account"
+  },
+  {
+   "fieldname": "column_break_pkoc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_ajif",
+   "fieldtype": "Column Break"
   }
  ],
  "issingle": 1,
  "links": [],
- "modified": "2026-06-11 13:21:51.281891",
+ "modified": "2026-06-12 00:12:33.114188",
  "modified_by": "Administrator",
  "module": "OnKoperasi",
  "name": "Koperasi Settings",

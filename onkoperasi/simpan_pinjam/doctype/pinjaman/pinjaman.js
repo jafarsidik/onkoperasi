@@ -5,34 +5,34 @@ frappe.ui.form.on('Pinjaman', {
 	
 	refresh: function(frm) {
 		
-		if(!frm.is_new()){
-			frm.toggle_reqd(['disetujui_oleh','tanggal_di_setujui','tanggal_realisasi','catatan'], frm.doc.status === 'Requested');
-			frm.toggle_reqd(['tanggal_realisasi'], frm.doc.status === 'Approved');
+		// if(!frm.is_new()){
+		// 	frm.toggle_reqd(['disetujui_oleh','tanggal_di_setujui','tanggal_realisasi','catatan'], frm.doc.status === 'Requested');
+		// 	frm.toggle_reqd(['tanggal_realisasi'], frm.doc.status === 'Approved');
 
-			frm.toggle_display([
-				'disetujui_oleh',
-				'tanggal_di_setujui',
-				'catatan',
-				'tanggal_realisasi',
-				'administrasi_',
-				'provisi_',
-				'asuransi_',
-				'biaya_lain_lain',
-				'grand_total'
-			], frm.doc.status === 'Requested' || frm.doc.status === 'Approved');
-			if( parseFloat(frm.doc.grand_total) <= 0 ){
+		// 	frm.toggle_display([
+		// 		'disetujui_oleh',
+		// 		'tanggal_di_setujui',
+		// 		'catatan',
+		// 		'tanggal_realisasi',
+		// 		'administrasi_',
+		// 		'provisi_',
+		// 		'asuransi_',
+		// 		'biaya_lain_lain',
+		// 		'grand_total'
+		// 	], frm.doc.status === 'Requested' || frm.doc.status === 'Approved');
+		// 	if( parseFloat(frm.doc.grand_total) <= 0 ){
 				
-				frm.set_value('grand_total', frm.doc.plafon);
-			}
-		}
+		// 		frm.set_value('grand_total', frm.doc.plafon);
+		// 	}
+		// }
 		
 
 	},
 	setup: function (frm) {
-		frm.set_query('anggota', function () {
+		frm.set_query('Customer', function () {
 			return {
 				filters: {
-					status: 'Aktif',
+					status: 1,
 				}
 			}
 		});
@@ -101,6 +101,7 @@ frappe.ui.form.on('Pinjaman', {
 			let angsuran_perbulan = plafon / tenor;
 			frm.set_value('jumlah_angsuran', angsuran_perbulan);
 		}
+		hitung_pencairan(frm);
 	},
 	jasa_bunga:function(frm){
 
@@ -130,29 +131,19 @@ frappe.ui.form.on('Pinjaman', {
 		}
 	},
 	biaya_lain_lain:function(frm){
-		//biaya pencairan
-		let total = ((100 - frm.doc.administrasi_ - frm.doc.provisi_ - frm.doc.asuransi_) * frm.doc.plafon / 100);
-		let grand_total = (total - frm.doc.biaya_lain_lain);
-		frm.set_value('grand_total', grand_total);
+		hitung_pencairan(frm);
 	},
 	administrasi_:function(frm){
-		//biaya pencairan
-		let total = ((100 - frm.doc.administrasi_ - frm.doc.provisi_ - frm.doc.asuransi_) * frm.doc.plafon / 100);
-		let grand_total = (total - frm.doc.biaya_lain_lain);
-		frm.set_value('grand_total', grand_total);
+		hitung_pencairan(frm);
 	},
 	provisi_:function(frm){
-		//biaya pencairan
-		let total = ((100 - frm.doc.administrasi_ - frm.doc.provisi_ - frm.doc.asuransi_) * frm.doc.plafon / 100);
-		let grand_total = (total - frm.doc.biaya_lain_lain);
-		frm.set_value('grand_total', grand_total);
+		hitung_pencairan(frm);
 	},
 	asuransi_:function(frm){
 		//biaya pencairan
-		let total = ((100 - frm.doc.administrasi_ - frm.doc.provisi_ - frm.doc.asuransi_) * frm.doc.plafon / 100);
-		let grand_total = (total - frm.doc.biaya_lain_lain);
-		frm.set_value('grand_total', grand_total);
+		hitung_pencairan(frm);
 	}
+	
 	// simulasi_pinjaman:function(frm){
 		
 	// 	frappe.call('onkoperasi.onkoperasi.doctype.pinjaman.pinjaman.simulasi_pinjaman', {fieldname: frm.doc.name}).then(r => {
@@ -177,3 +168,21 @@ frappe.ui.form.on('Pinjaman', {
 	// }
 	
 });
+function hitung_pencairan(frm) {
+	let plafon = flt(frm.doc.plafon);
+	let administrasi = flt(frm.doc.administrasi_);
+	let provisi = flt(frm.doc.provisi_);
+	let asuransi = flt(frm.doc.asuransi_);
+	let biaya_lain = flt(frm.doc.biaya_lain_lain);
+
+	biaya_administrasi = (administrasi / 100) * plafon;
+	biaya_provisi = (provisi / 100) * plafon;
+	biaya_asuransi = (asuransi / 100) * plafon;		
+	// total diterima anggota
+	let grand_total = plafon - biaya_administrasi - biaya_provisi - biaya_asuransi - biaya_lain;
+
+	frm.set_value("biaya_administrasi", biaya_administrasi);
+	frm.set_value("biaya_provisi", biaya_provisi);
+	frm.set_value("biaya_asuransi", biaya_asuransi);
+	frm.set_value("grand_total", grand_total);
+}

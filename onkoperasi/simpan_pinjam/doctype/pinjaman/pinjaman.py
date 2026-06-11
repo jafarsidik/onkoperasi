@@ -3,8 +3,9 @@
 
 import frappe 
 from frappe.utils import add_months, add_days,flt, get_last_day, getdate, now_datetime,add_to_date
-
 from frappe.model.document import Document
+from onkoperasi.onkoperasi.api import create_pinjaman_journal_entry
+
 
 class Pinjaman(Document):
 	#pass
@@ -12,6 +13,11 @@ class Pinjaman(Document):
 		if self.status_realisasi == 'Already Realized':
 		#if self.status == 'Approved':
 			self.pembayaran_pinjaman()
+		
+			je_name = create_pinjaman_journal_entry(self,
+				tanggal=self.tanggal_realisasi,
+			)
+			frappe.msgprint(f"Jurnal Entry {je_name} berhasil dibuat.", alert=True)
 			
 	def pembayaran_pinjaman(self):
 		tempo	= self.tanggal_realisasi

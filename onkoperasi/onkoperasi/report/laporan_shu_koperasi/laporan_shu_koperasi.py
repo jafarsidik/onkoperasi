@@ -7,169 +7,322 @@ from frappe.utils import flt
 
 
 def execute(filters: dict | None = None):
-	"""Return columns and data for the report.
-
-	This is the main entry point for the report. It accepts the filters as a
-	dictionary and should return columns and data. It is called by the framework
-	every time the report is refreshed or a filter is updated.
-	"""
+	"""Return columns and data for the report."""
 	columns = get_columns()
-	data = get_data(filters)
+	data, chart = get_data(filters)
 
-	return columns, data
+	return columns, data, None, chart
 
 
 def get_columns() -> list[dict]:
-	"""Return columns for the report.
-
-	One field definition per column, just like a DocType field definition.
-	"""
+	"""Return columns for the report."""
 	return [
-		{"label": _("ID Anggota"),       "fieldname": "member_id",          "fieldtype": "Link", "options": "Customer", "width": 120},
-		{"label": _("Nama Anggota"),      "fieldname": "nama_anggota",        "fieldtype": "Data",    "width": 180},
-		{"label": _("Total Simpanan"),    "fieldname": "total_simpanan",      "fieldtype": "Currency","width": 140},
-		{"label": _("Total Pinjaman"),    "fieldname": "total_pinjaman",      "fieldtype": "Currency","width": 140},
-		{"label": _("Jasa Pinjaman"),     "fieldname": "jasa_pinjaman",       "fieldtype": "Currency","width": 140},
-		{"label": _("% Jasa Modal"),      "fieldname": "pct_jasa_modal",      "fieldtype": "Percent", "width": 110},
-		{"label": _("% Jasa Usaha"),      "fieldname": "pct_jasa_usaha",      "fieldtype": "Percent", "width": 110},
-		{"label": _("SHU Jasa Modal"),    "fieldname": "shu_jasa_modal",      "fieldtype": "Currency","width": 140},
-		{"label": _("SHU Jasa Usaha"),    "fieldname": "shu_jasa_usaha",      "fieldtype": "Currency","width": 140},
-		{"label": _("Total SHU Anggota"),"fieldname": "total_shu",           "fieldtype": "Currency","width": 150},
+		{
+			"label": _("Anggota"),
+			"fieldname": "customer",
+			"fieldtype": "Link",
+			"options": "Customer",
+			"width": 130,
+		},
+		{
+			"label": _("Nama Anggota"),
+			"fieldname": "nama_anggota",
+			"fieldtype": "Data",
+			"width": 180,
+		},
+		{
+			"label": _("Total Simpanan"),
+			"fieldname": "total_simpanan",
+			"fieldtype": "Currency",
+			"width": 150,
+		},
+		{
+			"label": _("Jasa Pinjaman"),
+			"fieldname": "jasa_pinjaman",
+			"fieldtype": "Currency",
+			"width": 180,
+		},
+		{
+			"label": _("Total Transaksi POS"),
+			"fieldname": "total_pos",
+			"fieldtype": "Currency",
+			"width": 180,
+		},
+		{
+			"label": _("Porsi Jasa Modal (%)"),
+			"fieldname": "pct_jasa_modal",
+			"fieldtype": "Percent",
+			"width": 150,
+		},
+		{
+			"label": _("Porsi Jasa Transaksi (%)"),
+			"fieldname": "pct_jasa_transaksi",
+			"fieldtype": "Percent",
+			"width": 160,
+		},
+		{
+			"label": _("SHU Jasa Modal"),
+			"fieldname": "shu_jasa_modal",
+			"fieldtype": "Currency",
+			"width": 150,
+		},
+		{
+			"label": _("SHU Jasa Transaksi"),
+			"fieldname": "shu_jasa_transaksi",
+			"fieldtype": "Currency",
+			"width": 160,
+		},
+		{
+			"label": _("Total SHU"),
+			"fieldname": "total_shu",
+			"fieldtype": "Currency",
+			"width": 150,
+		},
 	]
 
 
-def get_data(filters: dict | None = None) -> list[list]:
-	"""Return data for the report.
+# =========================================================
+# MAIN REPORT
+# =========================================================
+def get_data(filters):
 
-	The report data is a list of rows, with each row being a list of cell values.
-	"""
-	  
 	from_date = filters.get("from_date")
 	to_date   = filters.get("to_date")
-	
-	# ── 1. Ambil pengaturan alokasi SHU dari filter ──────────────────────
-	pct_anggota   = flt(filters.get("pct_anggota", 40)) / 100    # misal 40%
-	pct_jasa_modal = flt(filters.get("pct_jasa_modal", 30)) / 100 # dari bagian anggota
-	pct_jasa_usaha = 1 - pct_jasa_modal
 
-	# ── 2. Hitung total SHU bersih koperasi ──────────────────────────────
-	total_pendapatan = get_total_akun(
-		["Pendapatan Jasa Pinjaman", "Pendapatan Unit Usaha"], 
-		from_date, to_date, "credit"
+	settings = frappe.get_single("Koperasi Settings")
+
+	persen_jasa_modal     = flt(settings.persen_jasa_modal) / 100
+	persen_jasa_transaksi = flt(settings.persen_jasa_transaksi) / 100
+
+
+	# =====================================================
+	# SHU BERSIH (FULL GL ENTRY BASED)
+	# =====================================================
+	shu_bersih = get_shu_bersih(from_date, to_date)
+
+	shu_pool_modal     = shu_bersih * persen_jasa_modal
+	shu_pool_transaksi = shu_bersih * persen_jasa_transaksi
+
+	# =====================================================
+	# DATA PER ANGGOTA
+	# =====================================================
+	simpanan_map      = get_simpanan_per_anggota(to_date)
+	pos_map           = get_pos_per_anggota(from_date, to_date)
+	jasa_pinjaman_map = get_jasa_pinjaman_per_anggota(from_date, to_date)
+
+	total_simpanan_semua = sum(flt(v.get("total_simpanan", 0)) for v in simpanan_map.values())
+	total_usaha_semua = (
+		sum(flt(v.get("total_pos",       0)) for v in pos_map.values())
+		+ sum(flt(v.get("jasa_pinjaman", 0)) for v in jasa_pinjaman_map.values())
 	)
-	total_beban = get_total_akun(
-		["Beban Jasa Simpanan"], 
-		from_date, to_date, "debit"
+
+	# =====================================================
+	# COMBINE KE SEMUA CUSTOMER
+	# =====================================================
+	all_customers = set(
+		list(simpanan_map.keys())
+		+ list(pos_map.keys())
+		+ list(jasa_pinjaman_map.keys())
 	)
-	shu_bersih      = total_pendapatan - total_beban
-	shu_bagian_anggota = shu_bersih * pct_anggota
 
-	# ── 3. Data simpanan dan transaksi per anggota ────────────────────────
-	simpanan_map   = get_simpanan_per_anggota(to_date)
-	pinjaman_map   = get_pinjaman_per_anggota(from_date, to_date)
-	total_simpanan_koperasi = sum(v["total_simpanan"] for v in simpanan_map.values())
-	total_pinjaman_koperasi = sum(v["total_pinjaman"] for v in pinjaman_map.values())
-
-	# ── 4. Gabungkan semua member ─────────────────────────────────────────
-	all_members = set(list(simpanan_map.keys()) + list(pinjaman_map.keys()))
 	rows = []
 
-	for member_id in all_members:
-		s = simpanan_map.get(member_id, {})
-		p = pinjaman_map.get(member_id, {})
+	for cust in all_customers:
+		s = simpanan_map.get(cust, {})
+		p = pos_map.get(cust, {})
+		j = jasa_pinjaman_map.get(cust, {})
 
-		simpanan  = flt(s.get("total_simpanan", 0))
-		pinjaman  = flt(p.get("total_pinjaman", 0))
-		nama      = s.get("nama_anggota") or p.get("nama_anggota", member_id)
+		simpanan      = flt(s.get("total_simpanan", 0))
+		total_pos     = flt(p.get("total_pos",      0))
+		jasa_pinjaman = flt(j.get("jasa_pinjaman",  0))
 
-		# Porsi jasa modal = simpanan anggota / total simpanan koperasi
-		porsi_modal  = (simpanan / total_simpanan_koperasi) if total_simpanan_koperasi else 0
-		# Porsi jasa usaha = pinjaman anggota / total pinjaman koperasi  
-		porsi_usaha  = (pinjaman / total_pinjaman_koperasi) if total_pinjaman_koperasi else 0
+		nama = (
+			s.get("nama_anggota")
+			or p.get("nama_anggota")
+			or j.get("nama_anggota")
+			or cust
+		)
 
-		shu_modal  = shu_bagian_anggota * pct_jasa_modal * porsi_modal
-		shu_usaha  = shu_bagian_anggota * pct_jasa_usaha * porsi_usaha
-		total_shu  = shu_modal + shu_usaha
+		porsi_modal     = (simpanan / total_simpanan_semua) if total_simpanan_semua else 0
+		usaha           = total_pos + jasa_pinjaman
+		porsi_transaksi = (usaha / total_usaha_semua) if total_usaha_semua else 0
+
+		shu_modal     = shu_pool_modal * porsi_modal
+		shu_transaksi = shu_pool_transaksi * porsi_transaksi
 
 		rows.append({
-			"member_id":     member_id,
-			"nama_anggota":  nama,
-			"total_simpanan": simpanan,
-			"total_pinjaman": pinjaman,
-			"jasa_pinjaman": flt(p.get("jasa_pinjaman", 0)),
-			"pct_jasa_modal": porsi_modal * 100,
-			"pct_jasa_usaha": porsi_usaha * 100,
-			"shu_jasa_modal": shu_modal,
-			"shu_jasa_usaha": shu_usaha,
-			"total_shu":     total_shu,
+			"customer":           cust,
+			"nama_anggota":       nama,
+			"total_simpanan":     simpanan,
+			"total_pos":          total_pos,
+			"jasa_pinjaman":      jasa_pinjaman,
+			"pct_jasa_modal":     porsi_modal * 100,
+			"pct_jasa_transaksi": porsi_transaksi * 100,
+			"shu_jasa_modal":     shu_modal,
+			"shu_jasa_transaksi": shu_transaksi,
+			"total_shu":          shu_modal + shu_transaksi,
 		})
 
-	# Urutkan dari SHU terbesar
 	rows.sort(key=lambda x: x["total_shu"], reverse=True)
-	
-	# Tambah baris total
+
+	# =====================================================
+	# CHART (sebelum summary row ditambah)
+	# =====================================================
+	top10 = rows[:10]
+
+	chart = {
+		"type": "bar",
+		"barOptions": {"stacked": True},
+		"data": {
+			"labels": [r["nama_anggota"] for r in top10],
+			"datasets": [
+				{
+					"name":   "SHU Modal",
+					"values": [flt(r["shu_jasa_modal"])     for r in top10],
+				},
+				{
+					"name":   "SHU Transaksi",
+					"values": [flt(r["shu_jasa_transaksi"]) for r in top10],
+				},
+			],
+		},
+	}
+
+	# =====================================================
+	# TOTAL ROW (setelah chart, sebelum return)
+	# =====================================================
 	rows.append({
-		"member_id":     "",
-		"nama_anggota":  "TOTAL",
-		"total_simpanan": sum(r["total_simpanan"] for r in rows),
-		"total_pinjaman": sum(r["total_pinjaman"] for r in rows),
-		"shu_jasa_modal": sum(r["shu_jasa_modal"] for r in rows),
-		"shu_jasa_usaha": sum(r["shu_jasa_usaha"] for r in rows),
-		"total_shu":     sum(r["total_shu"] for r in rows),
+		"customer":           "",
+		"nama_anggota":       "TOTAL",
+		"total_simpanan":     sum(flt(r.get("total_simpanan",     0)) for r in rows),
+		"total_pos":          sum(flt(r.get("total_pos",          0)) for r in rows),
+		"jasa_pinjaman":      sum(flt(r.get("jasa_pinjaman",      0)) for r in rows),
+		"pct_jasa_modal":     "",
+		"pct_jasa_transaksi": "",
+		"shu_jasa_modal":     sum(flt(r.get("shu_jasa_modal",     0)) for r in rows),
+		"shu_jasa_transaksi": sum(flt(r.get("shu_jasa_transaksi", 0)) for r in rows),
+		"total_shu":          sum(flt(r.get("total_shu",          0)) for r in rows),
 	})
-	
-	return rows
+
+	return rows, chart
 
 
-# ── Helper functions ──────────────────────────────────────────────────────────
+# =========================================================
+# SHU BERSIH — SEMUA INCOME - SEMUA EXPENSE (GL BASED)
+# =========================================================
+def get_shu_bersih(from_date, to_date):
+	result = frappe.db.sql("""
+		SELECT
+			SUM(
+				CASE
+					WHEN acc.root_type = 'Income'  THEN gle.credit - gle.debit
+					WHEN acc.root_type = 'Expense' THEN gle.debit  - gle.credit
+					ELSE 0
+				END
+			) AS shu
+		FROM `tabGL Entry` gle
+		JOIN `tabAccount` acc ON acc.name = gle.account
+		WHERE gle.is_cancelled = 0
+		  AND gle.posting_date BETWEEN %s AND %s
+	""", (from_date, to_date), as_dict=True)
 
-def get_total_akun(account_names, from_date, to_date, side):
-	placeholders = ", ".join(["%s"] * len(account_names))
-	result = frappe.db.sql(f"""
-		SELECT COALESCE(SUM({side}), 0) AS total
-		FROM `tabGL Entry`
-		WHERE account IN (
-			SELECT name FROM `tabAccount` WHERE account_name IN ({placeholders})
-		)
-		AND posting_date BETWEEN %s AND %s
-		AND docstatus = 1 AND is_cancelled = 0
-	""", account_names + [from_date, to_date], as_dict=True)
-	return flt(result[0]["total"]) if result else 0
+	return flt(result[0].shu or 0) if result else 0.0
 
+
+# =========================================================
+# SIMPANAN — DOC BASED (hanya pokok + wajib)
+# =========================================================
 def get_simpanan_per_anggota(to_date):
 	rows = frappe.db.sql("""
-		SELECT 
-			gle.party AS member_id,
+		SELECT
+			ts.anggota AS customer,
 			c.customer_name AS nama_anggota,
-			SUM(gle.credit - gle.debit) AS total_simpanan
-		FROM `tabGL Entry` gle
-		LEFT JOIN `tabCustomer` c ON c.name = gle.party
-		WHERE gle.account IN (
-			SELECT name FROM `tabAccount` 
-			WHERE account_name IN ('Simpanan Pokok Anggota','Simpanan Wajib Anggota')
-		)
-		AND gle.party_type = 'Customer'
-		AND gle.posting_date <= %s
-		AND gle.docstatus = 1 AND gle.is_cancelled = 0
-		GROUP BY gle.party
+			SUM(CASE WHEN ts.tipe_transaksi = 'Setoran'   THEN ts.jumlah ELSE 0 END)
+			- SUM(CASE WHEN ts.tipe_transaksi = 'Penarikan' THEN ts.jumlah ELSE 0 END)
+				AS total_simpanan
+		FROM `tabTransaksi Simpanan` ts
+		LEFT JOIN `tabCustomer` c ON c.name = ts.anggota
+		INNER JOIN `tabJenis Simpanan` js ON js.name = ts.jenis_simpanan
+		WHERE ts.docstatus = 1
+		  AND ts.tanggal_transaksi <= %s
+		  AND (
+			  js.nama_simpanan LIKE '%%pokok%%'
+			  OR js.nama_simpanan LIKE '%%wajib%%'
+		  )
+		GROUP BY ts.anggota
 		HAVING total_simpanan > 0
-	""", [to_date], as_dict=True)
-	return {r["member_id"]: r for r in rows}
+	""", (to_date,), as_dict=True)
 
-def get_pinjaman_per_anggota(from_date, to_date):
+	return {
+		r["customer"]: {
+			"total_simpanan": flt(r["total_simpanan"]),
+			"nama_anggota":   r["nama_anggota"],
+		}
+		for r in rows if r.get("customer")
+	}
+
+
+# =========================================================
+# POS — dari tabSales Invoice per anggota (customer)
+# Asumsi: anggota koperasi adalah Customer di ERPNext,
+#         Sales Invoice.customer = Customer.name anggota
+# =========================================================
+def get_pos_per_anggota(from_date, to_date):
 	rows = frappe.db.sql("""
-		SELECT 
-			pe.party AS member_id,
+		SELECT
+			pi.customer AS customer,
 			c.customer_name AS nama_anggota,
-			SUM(pe.paid_amount) AS total_pinjaman,
-			SUM(CASE WHEN pe.remarks LIKE '%jasa%' OR pe.remarks LIKE '%bunga%' 
-				THEN pe.paid_amount ELSE 0 END) AS jasa_pinjaman
-		FROM `tabPayment Entry` pe
-		LEFT JOIN `tabCustomer` c ON c.name = pe.party
-		WHERE pe.party_type = 'Customer'
-		AND pe.payment_type = 'Receive'
-		AND pe.posting_date BETWEEN %s AND %s
-		AND pe.docstatus = 1
-		GROUP BY pe.party
-	""", [from_date, to_date], as_dict=True)
-	return {r["member_id"]: r for r in rows}
+			SUM(pi.grand_total) AS total_pos
+		FROM `tabSales Invoice` pi
+		LEFT JOIN `tabCustomer` c ON c.name = pi.customer
+		WHERE pi.docstatus = 1
+		  AND pi.posting_date BETWEEN %s AND %s
+		GROUP BY pi.customer
+		HAVING total_pos > 0
+	""", (from_date, to_date), as_dict=True)
+
+	return {
+		r["customer"]: {
+			"total_pos":    flt(r["total_pos"]),
+			"nama_anggota": r["nama_anggota"],
+		}
+		for r in rows if r.get("customer")
+	}
+
+
+# =========================================================
+# JASA PINJAMAN — dari Journal Entry GL Income per anggota
+# Asumsi: Journal Entry punya field custom_anggota (Link ke Customer)
+#         Pendapatan bunga/jasa pinjaman masuk via Journal Entry
+# =========================================================
+def get_jasa_pinjaman_per_anggota(from_date, to_date):
+	rows = frappe.db.sql("""
+		SELECT
+			je.custom_anggota AS customer,
+			c.customer_name AS nama_anggota,
+			SUM(
+				CASE
+					WHEN acc.root_type = 'Income'
+						THEN gle.credit - gle.debit
+					ELSE 0
+				END
+			) AS jasa_pinjaman
+		FROM `tabGL Entry` gle
+		JOIN `tabJournal Entry` je  ON je.name = gle.voucher_no
+		JOIN `tabAccount` acc       ON acc.name = gle.account
+		LEFT JOIN `tabCustomer` c   ON c.name = je.custom_anggota
+		WHERE gle.is_cancelled = 0
+		  AND gle.posting_date BETWEEN %s AND %s
+		  AND je.custom_anggota IS NOT NULL
+		  AND je.custom_anggota != ''
+		GROUP BY je.custom_anggota
+		HAVING jasa_pinjaman > 0
+	""", (from_date, to_date), as_dict=True)
+
+	return {
+		r["customer"]: {
+			"jasa_pinjaman": flt(r["jasa_pinjaman"]),
+			"nama_anggota":  r["nama_anggota"],
+		}
+		for r in rows if r.get("customer")
+	}

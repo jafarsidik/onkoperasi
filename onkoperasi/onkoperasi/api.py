@@ -18,15 +18,15 @@ def buat_journal_entry(self, tanggal):
     if self.tipe_transaksi == "Setoran":
         baris = [
             {"akun": akun_kas, "debit": jumlah, "kredit": 0, "keterangan": keterangan},
-            {"akun": akun_simpanan, "debit": 0, "kredit": jumlah, "keterangan": keterangan}
+            {"akun": akun_simpanan, "debit": 0, "kredit": jumlah, "keterangan": keterangan,"party_type": "Customer",}
         ]
-        jenis = "Kas Masuk"
+   
     else:  # Penarikan
         baris = [
             {"akun": akun_simpanan, "debit": jumlah, "kredit": 0, "keterangan": keterangan},
             {"akun": akun_kas, "debit": 0, "kredit": jumlah, "keterangan": keterangan}
         ]
-        jenis = "Kas Keluar"
+   
     je = frappe.get_doc({
         "doctype": "Journal Entry",
         "voucher_type": "Journal Entry",
@@ -45,6 +45,57 @@ def buat_journal_entry(self, tanggal):
             for b in baris
         ],
     })
+    je.flags.ignore_permissions = True
+    je.insert()
+    je.submit()
+    return je.name
+
+# TARGET — pakai Journal Entry ERPNext
+def create_pinjaman_journal_entry(self, tanggal):
+    settings = frappe.get_single("Koperasi Settings")
+    
+    keterangan = f"Pinjaman Anggota {self.anggota} dengan Jenis Pinjaman {self.jenis_pinjaman}"
+    
+    je = frappe.get_doc({
+        "doctype": "Journal Entry",
+        "voucher_type": "Journal Entry",
+        "posting_date": tanggal,
+        "user_remark": keterangan,
+
+        # 🔥 TRACEABILITY LAYER
+        "custom_anggota": self.anggota,
+        "custom_source_doctype": "Pinjaman",
+        "custom_source_name": self.name,
+
+        "accounts": [
+            {
+                "account": settings.akun_piutang_pinjaman,
+                "debit_in_account_currency": self.plafon,
+                "party_type": "Customer",
+                "party": self.anggota
+            },
+            {
+                "account": settings.akun_kas,
+                "credit_in_account_currency": self.grand_total
+            },
+            {
+                "account": settings.akun_pendapatan_admin,
+                "credit_in_account_currency": self.biaya_administrasi
+            },
+            {
+                "account": settings.akun_pendapatan_provisi,
+                "credit_in_account_currency": self.biaya_provisi
+            },
+            {
+                "account": settings.akun_pendapatan_asuransi,
+                "credit_in_account_currency": self.biaya_asuransi
+            }
+        ]
+    })
+    je.custom_anggota = self.anggota
+    je.custom_referensi = self.name
+    je.custom_tipe = "PINJAMAN"
+
     je.flags.ignore_permissions = True
     je.insert()
     je.submit()
