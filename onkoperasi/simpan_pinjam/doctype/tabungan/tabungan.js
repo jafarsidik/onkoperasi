@@ -4,7 +4,7 @@
 frappe.ui.form.on('Tabungan', {
 	refresh: function(frm) {
 		if(!frm.is_new()){
-			frappe.call('onkoperasi.ksp.doctype.transaksi_simpanan.transaksi_simpanan.getSaldo', {rekening_tabungan: frm.doc.name}).then(r => {
+			frappe.call('onkoperasi.onkoperasi.api.getSaldo', {rekening_tabungan: frm.doc.name}).then(r => {
 				
 				frm.set_value('total_simpanan', r.message.debit);
 				frm.set_value('total_penarikan', r.message.kredit);

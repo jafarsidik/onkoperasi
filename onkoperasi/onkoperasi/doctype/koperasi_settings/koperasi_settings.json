@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_bulk_edit": 1,
  "creation": "2024-01-01 00:00:00",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -79,31 +80,31 @@
    "fieldname": "akun_kas",
    "fieldtype": "Link",
    "label": "Akun Kas",
-   "options": "Akun"
+   "options": "Account"
   },
   {
    "fieldname": "akun_bank",
    "fieldtype": "Link",
    "label": "Akun Bank",
-   "options": "Akun"
+   "options": "Account"
   },
   {
    "fieldname": "akun_simpanan_pokok",
    "fieldtype": "Link",
    "label": "Akun Simpanan Pokok",
-   "options": "Akun"
+   "options": "Account"
   },
   {
    "fieldname": "akun_simpanan_wajib",
    "fieldtype": "Link",
    "label": "Akun Simpanan Wajib",
-   "options": "Akun"
+   "options": "Account"
   },
   {
    "fieldname": "akun_simpanan_sukarela",
    "fieldtype": "Link",
    "label": "Akun Simpanan Sukarela",
-   "options": "Akun"
+   "options": "Account"
   },
   {
    "fieldname": "column_break_2",
@@ -113,31 +114,31 @@
    "fieldname": "akun_piutang_pinjaman",
    "fieldtype": "Link",
    "label": "Akun Piutang Pinjaman",
-   "options": "Akun"
+   "options": "Account"
   },
   {
    "fieldname": "akun_pendapatan_bunga",
    "fieldtype": "Link",
    "label": "Akun Pendapatan Bunga",
-   "options": "Akun"
+   "options": "Account"
   },
   {
    "fieldname": "akun_pendapatan_admin",
    "fieldtype": "Link",
    "label": "Akun Pendapatan Admin",
-   "options": "Akun"
+   "options": "Account"
   },
   {
    "fieldname": "akun_pendapatan_denda",
    "fieldtype": "Link",
    "label": "Akun Pendapatan Denda",
-   "options": "Akun"
+   "options": "Account"
   },
   {
    "fieldname": "akun_pendapatan_penjualan",
    "fieldtype": "Link",
    "label": "Akun Pendapatan Penjualan",
-   "options": "Akun"
+   "options": "Account"
   },
   {
    "fieldname": "section_shu",
@@ -188,12 +189,12 @@
    "fieldname": "akun_hpp_penjualan",
    "fieldtype": "Link",
    "label": "Akun HPP Penjualan",
-   "options": "Akun"
+   "options": "Account"
   }
  ],
  "issingle": 1,
  "links": [],
- "modified": "2026-06-01 14:03:48.703756",
+ "modified": "2026-06-11 13:21:51.281891",
  "modified_by": "Administrator",
  "module": "OnKoperasi",
  "name": "Koperasi Settings",

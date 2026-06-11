@@ -14,7 +14,6 @@
   "jumlah",
   "column_break_6",
   "keterangan",
-  "masuk_jurnal",
   "kode_akun",
   "teller",
   "section_break_vrbu",
@@ -54,16 +53,6 @@
    "in_list_view": 1,
    "label": "Jumlah",
    "non_negative": 1,
-   "reqd": 1,
-   "set_only_once": 1
-  },
-  {
-   "allow_in_quick_entry": 1,
-   "fieldname": "masuk_jurnal",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Masuk Jurnal",
-   "options": "Ya\nTidak",
    "reqd": 1
   },
   {
@@ -99,7 +88,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Anggota",
-   "options": "Anggota",
+   "options": "Customer",
    "read_only": 1
   },
   {
@@ -157,7 +146,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-26 11:06:55.521292",
+ "modified": "2026-06-11 14:55:48.437146",
  "modified_by": "Administrator",
  "module": "Simpan Pinjam",
  "name": "Transaksi Simpanan",
